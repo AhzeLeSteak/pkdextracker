@@ -1,0 +1,23 @@
+.slider-fixed{
+    --width: 18vw;
+    position: fixed;
+    width: var(--width);
+    top: 10vh;
+    left: calc(50vw - var(--width)/2);
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
+}
+
+.slider-fixed img{
+    image-rendering: pixelated;
+}
+
+.arrow-container{
+    display: flex;
+    align-items: center;
+}
+
+.p-dialog-title{
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,36 @@
+.glass-button {
+    display: inline-block;
+    padding: 24px 32px;
+    text-decoration: none;
+    border-radius: 15px;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(30px);
+    color: rgba(255,255,255,0.8);
+    font-size: 18px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 100%;
+    background-size: cover;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    margin-bottom: 1.5rem !important;
+}
+
+.glass-button:last-of-type{
+    margin-bottom: 0 !important;
+}
+
+.glass-button:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+#card-user .p-card-content, #card-gens .p-card-content{
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+#card-user .p-card-body{
+    padding-bottom: 0;
+}

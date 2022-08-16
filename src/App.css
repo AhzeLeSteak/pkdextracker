@@ -1,0 +1,23 @@
+.App {
+  overflow-x: hidden;
+}
+
+.background{
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 150vw;
+  height: 150vh;
+  background-image: url("/public/bg.png");
+  animation: slide 60s linear infinite;
+}
+
+@keyframes slide {
+  0% {
+    transform: translate(0);
+  }
+  100% {
+    transform: translate(-480px, -440px); /* The image width */
+  }
+}
