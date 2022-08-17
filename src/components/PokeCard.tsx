@@ -1,21 +1,12 @@
 import {ScrollPanel} from "primereact/scrollpanel";
 import {Card} from "primereact/card";
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useMemo} from "react";
 import {Capture, Location, Pkmn} from "../data/Pkmn";
 import {ListBox} from "primereact/listbox";
 import {Badge} from "primereact/badge";
 import {isDispoInVersion, useSearchContext} from "./SearchToolbar";
-import {memoizeMap} from "../data/memoize";
-import {collection, getDocs, query, where} from "firebase/firestore";
-import {getFirestore} from "../firebase/firebase-config";
-import {User} from "../data/User";
 import {UserCaptures} from "./UserCaptures";
 
-const getUser = memoizeMap(async (uid: string) => {
-    const q = query(collection(getFirestore(), 'users/'), where('uid', '==', uid))
-    const [doc] = (await getDocs(q)).docs;
-    return doc.data() as User;
-});
 
 type PartLocation = Partial<Location>;
 
@@ -30,6 +21,7 @@ const PokeCard = (props: {pk: Pkmn, captures: Capture[], showLocationDetail: (pk
         return locations;
     }, [pk, selectedVersion]);
 
+    /*
     const [users, setUsers] = useState<{user: User, versions :string[]}[]>([]);
     useEffect(() => {
         const promises = props.captures
@@ -41,7 +33,7 @@ const PokeCard = (props: {pk: Pkmn, captures: Capture[], showLocationDetail: (pk
             })
         Promise.all(promises)
             .then(setUsers);
-    }, [props.captures])
+    }, [props.captures])*/
 
     const title = <div className="grid">
         <div className="col-8">
@@ -56,9 +48,11 @@ const PokeCard = (props: {pk: Pkmn, captures: Capture[], showLocationDetail: (pk
 
     return <Card title={title} className="card-blur" onClick={() => props.showLocationDetail(pk)} style={{cursor: 'pointer'}}>
         <div className="grid">
-            <div className="col-4">
+            <div className="col-5">
                 <img src={pk.sprite} width={120} height={120} alt={'#'+pk.id}/>
-                {users.map(u => <UserCaptures key={u.user.uid} data={u}/>)}
+                {props.captures.map(c => c.uid).filter((el, index, array) => array.findIndex(x => x === el) === index)
+                    .map(uid => props.captures.filter(capture => capture.uid === uid))
+                    .map((userCaptures, i) => <UserCaptures key={i} captures={userCaptures}/>)}
             </div>
             <div className="col">
 

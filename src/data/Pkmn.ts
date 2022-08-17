@@ -14,6 +14,7 @@ export type Pkmn = {
 
 export type Capture = {
     uid: string,
-    version: string
+    version: string,
+    inPc: boolean
 }
 

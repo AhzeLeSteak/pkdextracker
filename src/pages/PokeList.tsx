@@ -24,12 +24,12 @@ function PokeList() {
     const [captureMap, setCaptureMap] = useState<Map<number, Capture[]>>(new Map());
 
     useEffect(() => {
-        const tmp = new Map();
+        const tmp = new Map<number, Capture[]>();
         for(const capture of captures || []){
             const id = capture.pkmnId;
             if(!tmp.has(id))
                 tmp.set(id, []);
-            tmp.set(id, [...tmp.get(id), {uid: capture.uid, version: capture.version}]);
+            tmp.set(id, [...(tmp.get(id)!), {uid: capture.uid, version: capture.version, inPc: capture.inPc}]);
         }
         setCaptureMap(tmp);
     }, [captures])

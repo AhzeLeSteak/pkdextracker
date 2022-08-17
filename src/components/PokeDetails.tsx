@@ -50,11 +50,12 @@ export const PokeDetails = ({pkmnId, setPkmnId, showDialog, setShowDialog, captu
 
 
     return <Dialog header={pkmn.name} visible={showDialog} style={{ width: '40vw'}} onHide={() => setShowDialog(false)} draggable={false}>
-        <div className="slider-fixed grid">
+        <div className="grid">
+            <div className="col-1"></div>
             <div className="col-2 arrow-container">
-                <Button icon="pi pi-arrow-left" className="p-button-rounded p-button-primary" onClick={() => setPkmnId(pkmnId-1)} />
+                {pkmnId > 1 && <Button icon="pi pi-arrow-left" className="p-button-rounded p-button-primary" onClick={() => setPkmnId(pkmnId-1)} />}
             </div>
-            <img className="col-8" src={pkmn.sprite} alt={pkmn.base_name}/>
+            <img className="col-6" src={pkmn.sprite} alt={pkmn.base_name}/>
             <div className="col-2 arrow-container">
                 <Button icon="pi pi-arrow-right" className="p-button-rounded p-button-primary" onClick={() => setPkmnId(pkmnId+1)} />
             </div>
@@ -65,16 +66,21 @@ export const PokeDetails = ({pkmnId, setPkmnId, showDialog, setShowDialog, captu
                 <ListBox options={locations.map(l => l.label).concat(pkmn.evolving_methods)} listStyle={{ maxHeight: '220px' }}
                          value={locationIndex} onChange={onChangeLocation}/>
             </SplitterPanel>
-            <SplitterPanel>
+            <SplitterPanel style={sub_locations.length < 2 ? {display: 'none'} : {}}>
                 <ListBox options={sub_locations} value={subIndex} listStyle={{ maxHeight: '220px' }}
                          onChange={onChangeSub} />
             </SplitterPanel>
-            <SplitterPanel>
+            <SplitterPanel style={details.length === 0 ? {display: 'none'} : {}}>
                 <ListBox options={details} listStyle={{ maxHeight: '220px' }}/>
             </SplitterPanel>
         </Splitter>
 
-        <CaptureBadges pkmnId={pkmnId} captures={captures}/>
+        <div className="grid mt-4">
+            <div className="col-2"></div>
+            <div className="col-8">
+                <CaptureBadges pkmnId={pkmnId} captures={captures}/>
+            </div>
+        </div>
 
 
     </Dialog>
