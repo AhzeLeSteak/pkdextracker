@@ -1,0 +1,36 @@
+.p-button.p-button-rounded.first{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 48%
+}
+
+.p-button.p-button-rounded.second{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    width: 48%;
+    margin-left: 4%;
+}
+
+.p-button.p-button-rounded.first:focus, .p-button.p-button-rounded.second:focus{
+    background-color: white;
+}
+
+.p-button{
+    display: inline-flex !important;
+}
+
+.row{
+    margin-bottom: 1em;
+    border-radius: 4em;
+    border: 1px solid black;
+    padding: 2px;
+}
+
+.p-button-outlined{
+    background-color: white !important;
+    border: none !important;
+}
+
+button.p-button.p-button-outlined span.p-button-label {
+    color: black;
+}
