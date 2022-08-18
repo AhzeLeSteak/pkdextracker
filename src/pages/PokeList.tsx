@@ -1,13 +1,35 @@
-import React, {useEffect, useState} from 'react';
+import React, {createContext, useContext, useState} from 'react';
 import {Capture, Pkmn} from "../data/Pkmn";
 import PokeCard from "../components/PokeCard";
 import {PokeDetails} from "../components/PokeDetails";
-import {useSearchContext} from "../components/SearchToolbar";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {COLLECTIONS, getFirestore} from "../firebase/firebase-config";
 import {collection} from 'firebase/firestore'
+import {allPkmn, GENS, VersionType} from "../data/consts";
+import {SearchToolbar} from "../components/SearchToolbar";
 
-function PokeList() {
+export type SearchContextType = {
+    genIndex: number,
+    versionIndex: number,
+    selectedVersionValue: string,
+    versionsOfGen: VersionType[],
+    getPokemon: (id: number) => Pkmn | null,
+}
+const SearchContext = createContext<SearchContextType>({
+    versionIndex: 0,
+    genIndex: 0,
+    selectedVersionValue: '',
+    versionsOfGen: [],
+    getPokemon: () => null
+});
+
+export const useSearchContext = () => useContext(SearchContext);
+
+
+function PokeList({genIndex}: {genIndex: number}) {
+
+    const [pokemons, setPokemons] = useState<Pkmn[]>([]);
+    const [versionIndex, setVersionIndex] = useState(0);
 
     const [showDialog, setShowDialog] = useState(false);
     const [selectedPkmnId, setSelectedPkmnId] = useState<number>(1);
@@ -17,40 +39,34 @@ function PokeList() {
         setShowDialog(true);
     }
 
-    const {filteredPokemons} = useSearchContext();
 
-    const [captures] = useCollectionData(collection(getFirestore(), COLLECTIONS.captures));
+    const [captures] = useCollectionData(collection(getFirestore(), COLLECTIONS.captures)) as unknown as [Capture[] | undefined, boolean];
 
-    const [captureMap, setCaptureMap] = useState<Map<number, Capture[]>>(new Map());
-
-    useEffect(() => {
-        const tmp = new Map<number, Capture[]>();
-        for(const capture of captures || []){
-            const id = capture.pkmnId;
-            if(!tmp.has(id))
-                tmp.set(id, []);
-            tmp.set(id, [...(tmp.get(id)!), {uid: capture.uid, version: capture.version, inPc: capture.inPc}]);
-        }
-        setCaptureMap(tmp);
-    }, [captures])
 
     return <>
-
-        <div className="grid pt-8">
-            <div className="col-1"></div>
-            <div className="col-10">
-                <div className="grid">
-                    {filteredPokemons.map(pk => (
-                        <div key={pk.id} className="col-3">
-                            <PokeCard pk={pk} captures={captureMap.get(pk.id) || []}  showLocationDetail={showLocationDetails}></PokeCard>
-                        </div>))}
+        <SearchContext.Provider value={{
+            genIndex, versionIndex,
+            versionsOfGen: GENS[genIndex],
+            selectedVersionValue: GENS[genIndex][versionIndex].value,
+            getPokemon: (id) => allPkmn[id-1]}}
+        >
+            <SearchToolbar setPkmns={setPokemons} setVersionIndex={setVersionIndex}></SearchToolbar>
+            <div className="grid pt-8">
+                <div className="col-1"></div>
+                <div className="col-10">
+                    <div className="grid">
+                        {pokemons.map(pk => (
+                            <div key={pk.id} className="col-3">
+                                <PokeCard pk={pk} captures={captures?.filter(c => c.pkmnId === pk.id) || []} onClick={() => showLocationDetails(pk)}></PokeCard>
+                            </div>))}
+                    </div>
                 </div>
             </div>
-        </div>
 
-        {selectedPkmnId && <PokeDetails pkmnId={selectedPkmnId} setPkmnId={setSelectedPkmnId}
-                                        showDialog={showDialog} setShowDialog={setShowDialog}
-                                        captures={captureMap.get(selectedPkmnId) || []}/>}
+            {selectedPkmnId && <PokeDetails pkmnId={selectedPkmnId} setPkmnId={setSelectedPkmnId}
+                                            showDialog={showDialog} setShowDialog={setShowDialog}
+                                            captures={captures?.filter(c => c.pkmnId === selectedPkmnId) || []}/>}
+        </SearchContext.Provider>
     </>;
 }
 

@@ -1,6 +1,5 @@
 import React, {useState} from "react";
-import {useSearchContext} from "./SearchToolbar";
-import {VersionType} from "../data/consts";
+import {GENS, VersionType} from "../data/consts";
 import {addDoc, collection, getDocs, query, setDoc, where} from "firebase/firestore";
 import {COLLECTIONS, getFirestore} from "../firebase/firebase-config";
 import {deleteDoc} from "@firebase/firestore";
@@ -8,10 +7,12 @@ import {useAuthContext} from "../firebase/AuthProvider";
 import {Capture} from "../data/Pkmn";
 import './CaptureBadges.css'
 import {Button} from "primereact/button";
+import {useSearchContext} from "../pages/PokeList";
 
 export const CaptureBadges = ({pkmnId, captures}: {pkmnId: number, captures: Capture[]}) => {
 
-    const {versionsOfGens} = useSearchContext();
+    const {versionIndex} = useSearchContext();
+    const versionsOfGen = GENS[versionIndex];
     const {user} = useAuthContext();
 
     const [loading, setLoading] = useState<number[]>([]);
@@ -60,7 +61,7 @@ export const CaptureBadges = ({pkmnId, captures}: {pkmnId: number, captures: Cap
     ></Button>
 
     return <div style={{textAlign: 'center'}}>
-        {versionsOfGens.map((v, i) => {
+        {versionsOfGen.map((v, i) => {
                 const capture = captures.find(c => c.uid === user?.uid && c.version === v.value);
                 const inPc = capture && capture.inPc;
                 return <div key={v.value} className="row" style={{backgroundColor: v.color}}>

@@ -4,9 +4,9 @@ import {ListBox, ListBoxChangeParams} from "primereact/listbox";
 import {Splitter, SplitterPanel} from "primereact/splitter";
 import './PokeDetails.css';
 import {Button} from "primereact/button";
-import {useSearchContext} from "./SearchToolbar";
 import {Capture} from "../data/Pkmn";
 import {CaptureBadges} from "./CaptureBadges";
+import {useSearchContext} from "../pages/PokeList";
 
 type DialogEncouterProps =  {
     pkmnId : number,
@@ -18,14 +18,14 @@ type DialogEncouterProps =  {
 
 export const PokeDetails = ({pkmnId, setPkmnId, showDialog, setShowDialog, captures}: DialogEncouterProps) => {
 
-    const {getPokemon, selectedVersion} = useSearchContext();
+    const {getPokemon, selectedVersionValue} = useSearchContext();
 
     const [locationIndex, setLocationIndex] = useState<number>(-1);
     const [subIndex, setSubIndex] = useState<number>(-1)
 
 
     const pkmn = useMemo(() => getPokemon(pkmnId), [pkmnId, getPokemon])!;
-    const locations = useMemo(() => pkmn.locations.filter(l => l.version === selectedVersion), [pkmn, selectedVersion]);
+    const locations = useMemo(() => pkmn.locations.filter(l => l.version === selectedVersionValue), [pkmn, selectedVersionValue]);
     const sub_locations = useMemo(() => locationIndex >= 0 && locations.length ? locations[locationIndex].sub : [], [locations, locationIndex]);
     const details = useMemo(() => {
         return subIndex >= 0 && sub_locations.length >= subIndex + 1 ? sub_locations[subIndex].details : [];
