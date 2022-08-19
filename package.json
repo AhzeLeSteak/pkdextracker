@@ -29,6 +29,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "homepage": "https://ahzelesteak.github.io/pkdextracker/",
   "eslintConfig": {
     "extends": [
       "react-app",
