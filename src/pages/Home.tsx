@@ -6,11 +6,15 @@ import g3 from './img/g3.png'
 import g4 from './img/g4.png'
 import {useAuthContext} from "../firebase/AuthProvider";
 import {Tooltip} from "primereact/tooltip";
+import {useNavigate} from "react-router-dom";
 
 const bg = [g1, g2, g3, g4];
 
 function Home(){
     const {user, logout} = useAuthContext();
+    const basePath = process.env.NODE_ENV === 'production' ?
+        '/pkdextracker/' : '/';
+    const navigate = useNavigate();
 
     return <div className="grid" style={{marginTop: '10vh'}} >
         <div className="col-4"></div>
@@ -28,9 +32,9 @@ function Home(){
             </Card>
             <Card className="card-blur" id="card-gens">
                 {bg.map((i, g) =>
-                    <a key={g} href={'/'+(g+1)} className="glass-button pt-3 pb-3" style={{backgroundImage: `url(${g < bg.length ? bg[g] : g2})`}}>
+                    <div key={g} onClick={() => navigate(basePath+(g+1))} className="glass-button pt-3 pb-3" style={{backgroundImage: `url(${g < bg.length ? bg[g] : g2})`}}>
                         Génération {g+1}
-                    </a>)}
+                    </div>)}
             </Card>
 
         </div>
