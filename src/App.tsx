@@ -19,15 +19,15 @@ function App() {
     const {user} = useAuthContext();
 
     const basePath = process.env.NODE_ENV === 'production' ?
-        'pkdextracker' : '';
+        '/pkdextracker/' : '/';
 
     return <div className="App">
         <div className="background"></div>
         <BrowserRouter>
             <Routes>
-                {GENERATIONS.map(g => <Route key={g} path={basePath + '/'+(g+1)} element={<PokeList genIndex={g}/>}/>)}
-                <Route path={basePath + '/'} element={user ? <Home/> : <Login/>}/>
-                <Route path={basePath + '/*'} element={<Navigate to={basePath+'/'}/>}/>
+                {GENERATIONS.map(g => <Route key={g} path={basePath+(g+1)} element={<PokeList genIndex={g}/>}/>)}
+                <Route path={basePath} element={user ? <Home/> : <Login/>}/>
+                <Route path={basePath + '*'} element={<Test/>}/>
             </Routes>
         </BrowserRouter>
     </div>
