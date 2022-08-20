@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {SelectButton} from "primereact/selectbutton";
 import {allPkmn, GENS, PKMN_COUNT_BY_GEN, VersionType} from "../data/consts";
 import {Divider} from "primereact/divider";
@@ -19,6 +19,8 @@ export const SearchToolbar = ({setPkmns, setVersionIndex}: {setPkmns: (_: Pkmn[]
     const [showAvailable, _setShowAvailable] = useState(true);
     const [mustUpdate, setMustUpdate] = useState(false);
     const update = () => setMustUpdate(true);
+
+    const navigate = useNavigate();
 
     const nbPk = PKMN_COUNT_BY_GEN[genIndex];
     const startIndex = PKMN_COUNT_BY_GEN.slice(0, genIndex).reduce((a, b) => a+b, 0);
@@ -63,7 +65,7 @@ export const SearchToolbar = ({setPkmns, setVersionIndex}: {setPkmns: (_: Pkmn[]
 
 
     const left = <>
-        <Link to={'/'} style={{textDecoration: 'none'}}><div style={{color: 'white', fontSize: '36px'}}>Pkdex Tracker</div></Link>
+        <div onClick={() => navigate('/')} style={{color: 'white', fontSize: '36px'}}>Pkdex Tracker</div>
         <SelectButton className="ml-4 mr-4" value={versionIndex} options={GENS[genIndex]} optionLabel="label"
                       onChange={(e) => setVersionIndex(GENS[genIndex].findIndex(v => v.value === e.value))}/>
         <Divider layout="vertical"/>
