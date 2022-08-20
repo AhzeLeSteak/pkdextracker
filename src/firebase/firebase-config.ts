@@ -24,6 +24,7 @@ export const getAuth = () => getAuthFb(app);
 export const getFirestore = () => getFirestoreFs(app)
 
 export const COLLECTIONS = {
-    captures: 'captures/',
-    users: 'users/'
+    CAPTURES: 'captures/',
+    USERS: 'users/',
+    GROUPS: 'groups/'
 }

@@ -19,7 +19,7 @@ export const CaptureBadges = ({pkmnId, captures}: {pkmnId: number, captures: Cap
     const removeLoading = (i: number) => setLoading(l => l.filter(el => el !== i));
 
     function getDoc(v: VersionType){
-        const captured_collection = collection(getFirestore(), COLLECTIONS.captures);
+        const captured_collection = collection(getFirestore(), COLLECTIONS.CAPTURES);
         let q = query(captured_collection, where('pkmnId', '==', pkmnId));
         q = query(q, where('uid', '==', user?.uid));
         q = query(q, where('version', '==', v.value));
@@ -36,7 +36,7 @@ export const CaptureBadges = ({pkmnId, captures}: {pkmnId: number, captures: Cap
                 return setDoc(doc.ref, capture);
             })
             .catch(() => {
-                const capture_collection = collection(getFirestore(), COLLECTIONS.captures);
+                const capture_collection = collection(getFirestore(), COLLECTIONS.CAPTURES);
                 return addDoc(capture_collection, {
                     uid: user?.uid,
                     pkmnId,

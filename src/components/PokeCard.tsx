@@ -25,6 +25,7 @@ const PokeCard = (props: {pk: Pkmn, captures: Capture[], onClick: (pkmn: any) =>
     const title = <div className="grid">
         <div className="col-8">
             #{pk.id} {pk.name}
+            <small className="ml-1" style={{fontSize: '0.5em'}}>{pk.base_name}</small>
         </div>
         <div className="col">
             {versionsOfGen.filter(v => isDispoInVersion(v.value, pk)).map(v =>

@@ -1,6 +1,6 @@
 import './App.css';
 import PokeList from "./pages/PokeList";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import {useAuthContext} from "./firebase/AuthProvider";
@@ -11,9 +11,7 @@ function App() {
 
     const {user} = useAuthContext();
 
-    const basePath = process.env.NODE_ENV === 'production' ?
-        '/pkdextracker/' : '/';
-    console.log({basePath});
+    const basePath = '/pkdextracker/';
 
     return <div className="App">
         <div className="background"></div>
@@ -21,7 +19,7 @@ function App() {
             <Routes>
                 {GENERATIONS.map(g => <Route key={g} path={basePath+(g+1)} element={<PokeList genIndex={g}/>}/>)}
                 <Route path={basePath} element={user ? <Home/> : <Login/>}/>
-                <Route path={basePath + '*'} element={<div>Homme</div>}/>
+            <Route path={'/*'} element={<Navigate to={basePath}/>}/>
             </Routes>
         </BrowserRouter>
     </div>

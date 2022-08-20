@@ -1,3 +1,5 @@
+import {VersionName} from "./consts";
+
 export type Location = {version: string, label: string, sub: {label: string, details: string[]}[]};
 
 export type Pkmn = {
@@ -14,7 +16,7 @@ export type Pkmn = {
 
 export type Capture = {
     uid: string,
-    version: string,
+    version: VersionName,
     inPc: boolean,
     pkmnId: number
 }

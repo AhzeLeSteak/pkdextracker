@@ -12,8 +12,7 @@ const bg = [g1, g2, g3, g4];
 
 function Home(){
     const {user, logout} = useAuthContext();
-    const basePath = process.env.NODE_ENV === 'production' ?
-        '/pkdextracker/' : '/';
+    const basePath = '/pkdextracker/';
     const navigate = useNavigate();
 
     return <div className="grid" style={{marginTop: '10vh'}} >

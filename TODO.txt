@@ -1,0 +1,5 @@
+mobile friendly
+créer et rejoinds groupes
+cacher les manquant/pas manquant
+corriger pour les verions > 1 - récuperer les pkmns
+marquer les pkmns vu ?
