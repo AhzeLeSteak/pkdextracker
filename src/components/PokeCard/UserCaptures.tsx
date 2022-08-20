@@ -1,8 +1,8 @@
 import React, {useId, useMemo} from "react";
 import {Button} from "primereact/button";
-import {Capture} from "../data/Pkmn";
-import {useUser} from "../data/User";
-import {useSearchContext} from "../pages/PokeList";
+import {Capture} from "../../data/Pkmn";
+import {useUser} from "../../data/User";
+import {useSearchContext} from "../../pages/PokeList";
 import {Tooltip} from "primereact/tooltip";
 
 
@@ -14,7 +14,7 @@ export function UserCaptures({captures}: {captures: Capture[]}){
 
     const versions = useMemo(() => captures.map(c => c.version), [captures]);
     const tooltip = useMemo(() =>
-            `Capturé par ${user?.name} dans les versions ${versions.map(v => versionsOfGen.find(vg => vg.value === v)!.label).join(', ')}`
+            `Capturé par ${user?.name} dans les versions ${versionsOfGen.filter(vg => versions.includes(vg.value)).map(v => v.label).join(', ')}`
         , [user, versions, versionsOfGen]);
 
     return !user ? <></> : <div data-pr-tooltip={tooltip} id={id} style={{display: 'flex', marginBottom: '4px'}}>

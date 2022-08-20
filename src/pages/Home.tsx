@@ -8,7 +8,7 @@ import {useAuthContext} from "../firebase/AuthProvider";
 import {Tooltip} from "primereact/tooltip";
 import {useNavigate} from "react-router-dom";
 
-const bg = [g1, g2, g3, g4];
+const bg = [g1];
 
 function Home(){
     const {user, logout} = useAuthContext();
@@ -16,8 +16,8 @@ function Home(){
     const navigate = useNavigate();
 
     return <div className="grid" style={{marginTop: '10vh'}} >
-        <div className="col-4"></div>
-        <div className="col-4">
+        <div className="col-0 md:col-2 lg:col-2"></div>
+        <div className="col-12 md:col-8 lg:col-8">
             <Tooltip target="#card-user"/>
             <Card className="card-blur mb-4 justify-content-center text-center" id="card-user" onClick={logout} style={{cursor: 'pointer'}} data-pr-tooltip="Se déconnecter">
                 <div className="grid">

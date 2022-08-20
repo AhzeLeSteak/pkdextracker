@@ -1,13 +1,14 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import {Capture, Pkmn} from "../data/Pkmn";
-import PokeCard from "../components/PokeCard";
-import {PokeDetails} from "../components/PokeDetails";
+import PokeCard from "../components/PokeCard/PokeCard";
+import {PokeDetails} from "../components/PokeDetails/PokeDetails";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {COLLECTIONS, getFirestore} from "../firebase/firebase-config";
 import {collection, getDocs, query, where} from 'firebase/firestore'
 import {allPkmn, GENS, PKMN_COUNT_BY_GEN, VersionName, VersionType} from "../data/consts";
-import {FilterElements, isDispoInVersion, SearchToolbar} from "../components/SearchToolbar";
+import {FilterElements, isDispoInVersion, SearchToolbar} from "../components/Toolbar/SearchToolbar";
 import {useAuthContext} from "../firebase/AuthProvider";
+import {isMobile} from "react-device-detect";
 
 export type SearchContextType = {
     genIndex: number,
@@ -70,12 +71,12 @@ function PokeList({genIndex}: {genIndex: number}) {
             getPokemon: (id) => allPkmn[id-1]}}
         >
             <SearchToolbar onSearchChange={onSeachChange} setVersionIndex={setVersionIndex}></SearchToolbar>
-            <div className="grid pt-8">
-                <div className="col-1"></div>
-                <div className="col-10">
+            <div className={'grid '+(isMobile ? '' : 'pt-8')}>
+                <div className="col-0 md:col-1 lg:col-1"></div>
+                <div className="col-12 md:col-10 lg:col-10">
                     <div className="grid">
                         {pokemons.map(pk => (
-                            <div key={pk.id} className="col-3">
+                            <div key={pk.id} className="col-12 md:col-4 lg:col-3">
                                 <PokeCard pk={pk} captures={captures?.filter(c => c.pkmnId === pk.id) || []} onClick={() => showLocationDetails(pk)}></PokeCard>
                             </div>))}
                     </div>

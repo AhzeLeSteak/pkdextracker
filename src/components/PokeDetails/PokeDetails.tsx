@@ -4,9 +4,10 @@ import {ListBox, ListBoxChangeParams} from "primereact/listbox";
 import {Splitter, SplitterPanel} from "primereact/splitter";
 import './PokeDetails.css';
 import {Button} from "primereact/button";
-import {Capture} from "../data/Pkmn";
+import {Capture} from "../../data/Pkmn";
 import {CaptureBadges} from "./CaptureBadges";
-import {useSearchContext} from "../pages/PokeList";
+import {useSearchContext} from "../../pages/PokeList";
+import {isMobile} from "react-device-detect";
 
 type DialogEncouterProps =  {
     pkmnId : number,
@@ -49,17 +50,27 @@ export const PokeDetails = ({pkmnId, setPkmnId, showDialog, setShowDialog, captu
     };
 
 
-    return <Dialog header={pkmn.name} visible={showDialog} style={{ width: '40vw'}} onHide={() => setShowDialog(false)} draggable={false}>
+    return <Dialog header={pkmn.name} visible={showDialog} style={{width: isMobile ? '100vw' : '75vh', maxWidth: '1200px'}}
+                   onHide={() => setShowDialog(false)} draggable={false}>
         <div className="grid">
             <div className="col-1"></div>
             <div className="col-2 arrow-container">
                 {pkmnId > 1 && <Button icon="pi pi-arrow-left" className="p-button-rounded p-button-primary" onClick={() => setPkmnId(pkmnId-1)} />}
             </div>
-            <img className="col-6" src={pkmn.sprite} alt={pkmn.base_name}/>
+            <img className="col-6 pixelated" src={pkmn.sprite} alt={pkmn.base_name}/>
             <div className="col-2 arrow-container">
                 <Button icon="pi pi-arrow-right" className="p-button-rounded p-button-primary" onClick={() => setPkmnId(pkmnId+1)} />
             </div>
         </div>
+
+        <div className="grid mt-1 mb-1">
+            <div className="col-0 md:col-2"></div>
+            <div className="col-12 md:col-8">
+                <CaptureBadges pkmnId={pkmnId} captures={captures}/>
+            </div>
+        </div>
+
+
 
         <Splitter>
             <SplitterPanel>
@@ -74,13 +85,6 @@ export const PokeDetails = ({pkmnId, setPkmnId, showDialog, setShowDialog, captu
                 <ListBox options={details} listStyle={{ maxHeight: '220px' }}/>
             </SplitterPanel>
         </Splitter>
-
-        <div className="grid mt-4">
-            <div className="col-2"></div>
-            <div className="col-8">
-                <CaptureBadges pkmnId={pkmnId} captures={captures}/>
-            </div>
-        </div>
 
 
     </Dialog>

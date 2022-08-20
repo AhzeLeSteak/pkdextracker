@@ -6,8 +6,8 @@ function Login(){
     const {login} = useAuthContext();
 
     return <div className="grid" style={{overflowY: 'hidden'}}>
-        <div className="col-5"></div>
-        <div className="col-2">
+        <div className="col-0 md:col-3 lg:col-5"></div>
+        <div className="col-12 md:col-6 lg:col-2">
             <Card style={{marginTop: '40vh'}} className="card-blur">
                 <h2 className="text-center">Pkdex Tracker</h2>
                 <small className="text-center" style={{display: 'block'}}>Veuillez vous connecter pour continuer</small>

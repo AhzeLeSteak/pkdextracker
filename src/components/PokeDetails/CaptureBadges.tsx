@@ -1,13 +1,13 @@
 import React, {useState} from "react";
-import {VersionType} from "../data/consts";
+import {VersionType} from "../../data/consts";
 import {addDoc, collection, getDocs, query, setDoc, where} from "firebase/firestore";
-import {COLLECTIONS, getFirestore} from "../firebase/firebase-config";
+import {COLLECTIONS, getFirestore} from "../../firebase/firebase-config";
 import {deleteDoc} from "@firebase/firestore";
-import {useAuthContext} from "../firebase/AuthProvider";
-import {Capture} from "../data/Pkmn";
+import {useAuthContext} from "../../firebase/AuthProvider";
+import {Capture} from "../../data/Pkmn";
 import './CaptureBadges.css'
 import {Button} from "primereact/button";
-import {useSearchContext} from "../pages/PokeList";
+import {useSearchContext} from "../../pages/PokeList";
 
 export const CaptureBadges = ({pkmnId, captures}: {pkmnId: number, captures: Capture[]}) => {
 
