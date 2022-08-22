@@ -10,6 +10,7 @@
 
 .pixelated{
     image-rendering: pixelated;
+    width: 100%;
 }
 
 .arrow-container{
@@ -20,4 +21,8 @@
 .p-dialog-title{
     display: flex;
     justify-content: center;
+}
+
+.invisible{
+    display: none;
 }

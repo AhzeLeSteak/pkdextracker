@@ -29,11 +29,14 @@ function Home(){
                     </div>
                 </div>
             </Card>
-            <Card className="card-blur" id="card-gens">
+            <Card className="card-blur mb-4" id="card-gens">
                 {bg.map((i, g) =>
                     <div key={g} onClick={() => navigate(basePath+(g+1))} className="glass-button pt-3 pb-3" style={{backgroundImage: `url(${g < bg.length ? bg[g] : g2})`}}>
                         Génération {g+1}
                     </div>)}
+            </Card>
+            <Card className="card-blur" id="card-gens" style={{cursor: 'pointer', textAlign: "center"}} onClick={() => navigate(basePath+'how-to')}>
+                Comment ça marche ?
             </Card>
 
         </div>

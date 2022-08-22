@@ -53,8 +53,8 @@ export const CaptureBadges = ({pkmnId, captures}: {pkmnId: number, captures: Cap
         return getDoc(v).then(d => deleteDoc(d.ref)).then(() => removeLoading(buttonIndex));
     }
 
-    const loadingBtn = (cls: string) => <Button
-        className={'p-button-rounded ' + cls}
+    const loadingBtn = (clss: string) => <Button
+        className={'p-button-rounded ' + clss}
         style={{color: 'black'}}
         label="Chargement"
     ></Button>

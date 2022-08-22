@@ -38,15 +38,10 @@ function PokeList({genIndex}: {genIndex: number}) {
     const [versionIndex, setVersionIndex] = useState(0);
 
     const [showDialog, setShowDialog] = useState(false);
-    const [selectedPkmnId, setSelectedPkmnId] = useState<number>(1);
+    const [selectedPkmnId, setSelectedPkmnId] = useState<number>(0);
 
     const {user} = useAuthContext();
     const [usersOfGroup, setUsersOfGroup] = useState<string[]>([user!.uid!]);
-
-    const showLocationDetails = (pk: Pkmn) => {
-        setSelectedPkmnId(pk.id);
-        setShowDialog(true);
-    }
 
     useEffect(() => {
         const groups = collection(getFirestore(), COLLECTIONS.GROUPS);
@@ -64,7 +59,7 @@ function PokeList({genIndex}: {genIndex: number}) {
     const [captures] = useCollectionData(captureQuery) as unknown as [Capture[] | undefined, boolean];
 
     const selectedVersionValue = GENS[genIndex][versionIndex].value;
-    const onSeachChange = (f: FilterElements) => setPokemons(filterPokemons(genIndex, selectedVersionValue, GENS[genIndex], captures || [], f));
+    const onSearchChange = (f: FilterElements) => setPokemons(filterPokemons(genIndex, selectedVersionValue, GENS[genIndex], captures || [], f));
 
 
     return <>
@@ -75,23 +70,25 @@ function PokeList({genIndex}: {genIndex: number}) {
             selectedVersionValue,
             getPokemon: (id) => allPkmn[id-1]}}
         >
-            <SearchToolbar onSearchChange={onSeachChange} setVersionIndex={setVersionIndex}></SearchToolbar>
+            <SearchToolbar onSearchChange={onSearchChange} setVersionIndex={setVersionIndex}></SearchToolbar>
             <div className={'grid '+(isMobile ? '' : 'pt-8')}>
                 <div className="col-0 md:col-1 lg:col-1"></div>
                 <div className="col-12 md:col-10 lg:col-10">
                     <div className="grid">
-                        {pokemons.map(pk => (
+                        {pokemons.map((pk, i) => (
                             <div key={pk.id} className="col-12 md:col-4 lg:col-3">
-                                <PokeCard pk={pk} captures={captures?.filter(c => c.pkmnId === pk.id) || []} onClick={() => showLocationDetails(pk)}></PokeCard>
+                                <PokeCard pk={pk} captures={captures?.filter(c => c.pkmnId === pk.id) || []}
+                                onClick={() => {setSelectedPkmnId(i);setShowDialog(true)}}/>
                             </div>))}
                     </div>
                 </div>
             </div>
 
-            {selectedPkmnId &&
-                <PokeDetails pkmnId={selectedPkmnId} setPkmnId={setSelectedPkmnId}
-                             showDialog={showDialog} setShowDialog={setShowDialog}
-                             captures={captures?.filter(c => c.pkmnId === selectedPkmnId) || []}/>}
+            {showDialog && <PokeDetails pkmnId={selectedPkmnId} setPkmnId={setSelectedPkmnId} pokemons={pokemons}
+                         showDialog={showDialog} setShowDialog={setShowDialog}
+                         captures={captures?.filter(c => c.pkmnId === pokemons[selectedPkmnId].id) || []}/>
+            }
+
         </SearchContext.Provider>
     </>;
 }

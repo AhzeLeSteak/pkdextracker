@@ -13,12 +13,12 @@ type PartLocation = Partial<Location>;
 
 const PokeCard = (props: {pk: Pkmn, captures: Capture[], onClick: (pkmn: any) => any}) => {
 
-    const {selectedVersionValue, versionsOfGen} = useSearchContext();
+    const {selectedVersionValue, versionsOfGen, genIndex} = useSearchContext();
     const pk = props.pk;
 
     const locations: PartLocation[] = useMemo(() => {
         const locations: PartLocation[] = pk.locations.filter(location => location.version === selectedVersionValue);
-        locations.unshift(...pk.evolving_methods.map(e => ({label: e})));
+        locations.unshift(...pk.evolving_methods.filter(l => genIndex > 1 || !l.includes('bonheur')).map(e => ({label: e})));
         return locations;
     }, [pk, selectedVersionValue]);
 
