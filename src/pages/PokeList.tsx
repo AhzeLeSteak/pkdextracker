@@ -13,13 +13,15 @@ import {isMobile} from "react-device-detect";
 export type SearchContextType = {
     genIndex: number,
     versionIndex: number,
+    setVersionIndex: (_: number) => void,
     selectedVersionValue: string,
     versionsOfGen: VersionType[],
     getPokemon: (id: number) => Pkmn | null,
 }
 const SearchContext = createContext<SearchContextType>({
-    versionIndex: 0,
     genIndex: 0,
+    versionIndex: 0,
+    setVersionIndex: () => null,
     selectedVersionValue: '',
     versionsOfGen: [],
     getPokemon: () => null
@@ -29,8 +31,10 @@ export const useSearchContext = () => useContext(SearchContext);
 
 
 function PokeList({genIndex}: {genIndex: number}) {
+    const nbPk = PKMN_COUNT_BY_GEN[genIndex];
+    const startIndex = PKMN_COUNT_BY_GEN.slice(0, genIndex).reduce((a, b) => a+b, 0);
 
-    const [pokemons, setPokemons] = useState<Pkmn[]>(allPkmn);
+    const [pokemons, setPokemons] = useState<Pkmn[]>(allPkmn.slice(startIndex, nbPk+startIndex));
     const [versionIndex, setVersionIndex] = useState(0);
 
     const [showDialog, setShowDialog] = useState(false);
@@ -66,6 +70,7 @@ function PokeList({genIndex}: {genIndex: number}) {
     return <>
         <SearchContext.Provider value={{
             genIndex, versionIndex,
+            setVersionIndex,
             versionsOfGen: GENS[genIndex],
             selectedVersionValue,
             getPokemon: (id) => allPkmn[id-1]}}
@@ -97,7 +102,7 @@ function filterPokemons(genIndex: number, selectedVersion: VersionName, versions
     return allPkmn.slice(startIndex, nbPk+startIndex).filter(pk => {
 
         //recherche dispo / pas dispo
-        const dispo = isDispoInVersion(selectedVersion, pk);
+        const dispo = versionsOfGen.some(v => isDispoInVersion(v.value, pk));
         if (!f.showAvailable && dispo)
             return false;
         if (!f.showUnavailable && !dispo)

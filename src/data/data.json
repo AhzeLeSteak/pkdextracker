@@ -16704,6 +16704,18 @@
     "preEvoBaseName": "nidoran-f",
     "locations": [
       {
+        "label": "Céladopole (casino)",
+        "version": "red",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (500 jetons)\n"
+            ]
+          }
+        ]
+      },
+      {
         "label": "Rive Lac Courage",
         "version": "diamond",
         "sub": [
@@ -17551,6 +17563,18 @@
     "preEvoBaseName": "nidoran-m",
     "locations": [
       {
+        "label": "Céladopole (casino)",
+        "version": "blue",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (750 jetons)\n"
+            ]
+          }
+        ]
+      },
+      {
         "label": "Rive Lac Courage",
         "version": "diamond",
         "sub": [
@@ -17997,6 +18021,30 @@
     "base_name": "clefairy",
     "preEvoBaseName": "cleffa",
     "locations": [
+      {
+        "label": "Céladopole (casino)",
+        "version": "red",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (500 jetons)\n"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Céladopole (casino)",
+        "version": "blue",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (750 jetons)\n"
+            ]
+          }
+        ]
+      },
       {
         "label": "Mont Couronné",
         "version": "platinum",
@@ -18673,6 +18721,18 @@
     "name": "Goupix",
     "base_name": "vulpix",
     "locations": [
+      {
+        "label": "Céladopole (casino)",
+        "version": "yellow",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (1000 jetons)\n"
+            ]
+          }
+        ]
+      },
       {
         "label": "Route 209",
         "version": "diamond",
@@ -19691,6 +19751,18 @@
     "base_name": "wigglytuff",
     "preEvoBaseName": "jigglypuff",
     "locations": [
+      {
+        "label": "Céladopole (casino)",
+        "version": "yellow",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (2680 jetons)\n"
+            ]
+          }
+        ]
+      },
       {
         "label": "Caverne Azurée",
         "version": "red",
@@ -44386,6 +44458,42 @@
     "name": "Abra",
     "base_name": "abra",
     "locations": [
+      {
+        "label": "Céladopole (casino)",
+        "version": "yellow",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (230 jetons)\n"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Céladopole (casino)",
+        "version": "blue",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (120 jetons)\n"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Céladopole (casino)",
+        "version": "red",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (180 jetons)\n"
+            ]
+          }
+        ]
+      },
       {
         "label": "Route 203",
         "version": "diamond",
@@ -93081,6 +93189,30 @@
     "base_name": "scyther",
     "locations": [
       {
+        "label": "Céladopole (casino)",
+        "version": "yellow",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (6500 jetons)\n"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Céladopole (casino)",
+        "version": "red",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (5500 jetons)\n"
+            ]
+          }
+        ]
+      },
+      {
         "label": "Route 210",
         "version": "platinum",
         "sub": [
@@ -93855,6 +93987,30 @@
     "name": "Scarabrute",
     "base_name": "pinsir",
     "locations": [
+      {
+        "label": "Céladopole (casino)",
+        "version": "yellow",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (6500 jetons)\n"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Céladopole (casino)",
+        "version": "blue",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (2500 jetons)\n"
+            ]
+          }
+        ]
+      },
       {
         "label": "Route 229",
         "version": "pearl",
@@ -110741,6 +110897,42 @@
             ]
           }
         ]
+      },
+      {
+        "label": "Céladopole (casino)",
+        "version": "yellow",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (9999 jetons)\n"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Céladopole (casino)",
+        "version": "red",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (9999 jetons)\n"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Céladopole (casino)",
+        "version": "blue",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (5500 jetons)\n"
+            ]
+          }
+        ]
       }
     ],
     "evolving_methods": [],
@@ -110750,7 +110942,44 @@
     "id": 138,
     "name": "Amonita",
     "base_name": "omanyte",
-    "locations": [],
+    "locations": [
+      {
+        "label": "Mont Sélénite",
+        "version": "yellow",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Fossile Nautile"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Mont Sélénite",
+        "version": "red",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Fossile Nautile"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Mont Sélénite",
+        "version": "blue",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Fossile Nautile"
+            ]
+          }
+        ]
+      }
+    ],
     "evolving_methods": [],
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/138.png"
   },
@@ -110769,7 +110998,44 @@
     "id": 140,
     "name": "Kabuto",
     "base_name": "kabuto",
-    "locations": [],
+    "locations": [
+      {
+        "label": "Mont Sélénite",
+        "version": "yellow",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Fossile Dome"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Mont Sélénite",
+        "version": "red",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Fossile Dome"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Mont Sélénite",
+        "version": "blue",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Fossile Dome"
+            ]
+          }
+        ]
+      }
+    ],
     "evolving_methods": [],
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/140.png"
   },
@@ -111268,6 +111534,30 @@
     "name": "Minidraco",
     "base_name": "dratini",
     "locations": [
+      {
+        "label": "Céladopole (casino)",
+        "version": "blue",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (4600 jetons)\n"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Céladopole (casino)",
+        "version": "red",
+        "sub": [
+          {
+            "label": "celadone-city-area",
+            "details": [
+              "Récompense au casino (2800 jetons)\n"
+            ]
+          }
+        ]
+      },
       {
         "label": "Mont Couronné",
         "version": "diamond",

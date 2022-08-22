@@ -1,7 +1,8 @@
 .p-button.p-button-rounded.first{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    width: 48%
+    width: 48%;
+    border: none;
 }
 
 .p-button.p-button-rounded.second{
@@ -9,6 +10,7 @@
     border-bottom-left-radius: 0;
     width: 48%;
     margin-left: 4%;
+    border: none;
 }
 
 .p-button.p-button-rounded.first:focus, .p-button.p-button-rounded.second:focus{

@@ -8,22 +8,24 @@ export interface User{
     uid: string
 }
 
-const users = new Map<string, User | undefined>();
+const users = new Map<string, User>();
+const promises = new Map<string, Promise<User>>();
 
 export const useUser = (uid: string) => {
     const [user, setUser] = useState<User | undefined>(users.get(uid));
 
-    if(!users.has(uid)){
-        users.set(uid, undefined);
+    if(!users.has(uid) && !promises.has(uid)){
         const q = query(collection(getFirestore(), 'users/'), where('uid', '==', uid))
-        getDocs(q).then(({docs}) => {
+        const p = getDocs(q).then(({docs}) => {
             const u = docs[0].data() as User;
             setUser(u);
-            users.set(uid, u);
-        })
+            users.set(uid, u)
+            return u;
+        });
+        promises.set(uid, p);
     }
-    else if(user === undefined && users.get(uid))
-        setUser(users.get(uid));
+    else if(user === undefined && promises.get(uid))
+        promises.get(uid)!.then(setUser);
 
     return user;
 };

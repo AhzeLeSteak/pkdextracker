@@ -21,8 +21,7 @@ type SearchToolbarProps = {
 
 export type FilterProps = {
     filters: FilterElements,
-    setFilters: <K extends keyof FilterElements>(key: K, val: FilterElements[K]) => void,
-    setVersionIndex: (_: number) => void
+    setFilters: <K extends keyof FilterElements>(key: K, val: FilterElements[K]) => void
 }
 
 
@@ -44,8 +43,8 @@ export const SearchToolbar = ({onSearchChange, setVersionIndex}: SearchToolbarPr
         _setFilters(newSearchState)
     }
 
-    return isMobile ? <MobileSpeeddialButton setVersionIndex={setVersionIndex} filters={filters} setFilters={setFilters}/>
-                    : <PCSearchBar setVersionIndex={setVersionIndex} filters={filters} setFilters={setFilters}/>;
+    return isMobile ? <MobileSpeeddialButton  filters={filters} setFilters={setFilters}/>
+                    : <PCSearchBar filters={filters} setFilters={setFilters}/>;
 
 }
 
@@ -57,5 +56,6 @@ export const isDispoInVersion = (v: string, pk ?: Pkmn): boolean => {
     if(!pk) return false;
     const preEvo = preEvolution(pk);
     return pk.locations.some(l => v.includes(l.version))
+        || pk.evolving_methods.length > 0
         || (preEvo ? isDispoInVersion(v, preEvo) : false);
 }

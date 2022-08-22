@@ -12,7 +12,7 @@ const bg = [g1];
 
 function Home(){
     const {user, logout} = useAuthContext();
-    const basePath = '/pkdextracker/';
+    const basePath = '/';
     const navigate = useNavigate();
 
     return <div className="grid" style={{marginTop: '10vh'}} >
