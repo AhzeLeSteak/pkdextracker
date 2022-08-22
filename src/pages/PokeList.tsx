@@ -22,8 +22,8 @@ const SearchContext = createContext<SearchContextType>({
     genIndex: 0,
     versionIndex: 0,
     setVersionIndex: () => null,
-    selectedVersionValue: '',
-    versionsOfGen: [],
+    selectedVersionValue: 'red',
+    versionsOfGen: GENS[0],
     getPokemon: () => null
 });
 

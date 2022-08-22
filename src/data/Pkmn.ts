@@ -10,7 +10,6 @@ export type Pkmn = {
     locations: Location[],
     evolving_methods: string[],
     sprite: string,
-    loaded: boolean,
     captures ?: Capture[]
 };
 

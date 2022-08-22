@@ -1,5 +1,5 @@
 import {Dialog} from "primereact/dialog";
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useMemo, useState} from "react";
 import {ListBox, ListBoxChangeParams} from "primereact/listbox";
 import {Splitter, SplitterPanel} from "primereact/splitter";
 import './PokeDetails.css';

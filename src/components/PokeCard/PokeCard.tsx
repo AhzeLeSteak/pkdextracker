@@ -1,3 +1,4 @@
+import './PokeCard.css';
 import {ScrollPanel} from "primereact/scrollpanel";
 import {Card} from "primereact/card";
 import React, {useMemo} from "react";
@@ -37,7 +38,7 @@ const PokeCard = (props: {pk: Pkmn, captures: Capture[], onClick: (pkmn: any) =>
     return <Card title={title} className="card-blur" style={{cursor: 'pointer'}} onClick={props.onClick}>
         <div className="grid">
             <div className="col-6">
-                <img src={pk.sprite} alt={'#'+pk.id} style={{width: '100%'}}/>
+                <img src={pk.sprite} alt={'#'+pk.id} className="pk-img"/>
             </div>
             <div className="col-6">
                 {props.captures.map(c => c.uid).filter((el, index, array) => array.findIndex(x => x === el) === index)
@@ -49,10 +50,10 @@ const PokeCard = (props: {pk: Pkmn, captures: Capture[], onClick: (pkmn: any) =>
         <div>
 
             {locations.length
-                ? <ScrollPanel style={{width: '100%', height: '200px'}}>
+                ? <ScrollPanel style={{width: '100%', height: '140px'}}>
                     <ListBox options={locations}/>
                 </ScrollPanel>
-                : <ScrollPanel style={{width: '100%', height: '200px'}}>
+                : <ScrollPanel style={{width: '100%', height: '140px'}}>
                     <ListBox options={['Non disponible']}/>
                 </ScrollPanel>
             }
