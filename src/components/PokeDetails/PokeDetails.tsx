@@ -4,7 +4,7 @@ import {ListBox, ListBoxChangeParams} from "primereact/listbox";
 import {Splitter, SplitterPanel} from "primereact/splitter";
 import './PokeDetails.css';
 import {Capture, Pkmn} from "../../data/Pkmn";
-import {CaptureBadges} from "./CaptureBadges";
+import {CaptureButtons} from "./CaptureButtons";
 import {useSearchContext} from "../../pages/PokeList";
 import {isMobile} from "react-device-detect";
 import {Carousel} from "primereact/carousel";
@@ -26,7 +26,7 @@ export const PokeDetails = ({pkmnId, setPkmnId, pokemons, showDialog, setShowDia
     const [subIndex, setSubIndex] = useState<number>(-1)
 
 
-    const pkmn = useMemo(() => pokemons[pkmnId], [pkmnId])!;
+    const pkmn = useMemo(() => pokemons[pkmnId], [pokemons, pkmnId])!;
     const locations = useMemo(() => pkmn.locations.filter(l => l.version === selectedVersionValue), [pkmn, selectedVersionValue]);
     const sub_locations = useMemo(() => locationIndex >= 0 && locations.length ? locations[locationIndex].sub : [], [locations, locationIndex]);
     const details = useMemo(() => {
@@ -58,7 +58,7 @@ export const PokeDetails = ({pkmnId, setPkmnId, pokemons, showDialog, setShowDia
             </div>
 
             <div className="mt-1 mb-1 col-12 lg:col-6">
-                <CaptureBadges pkmnId={pkmn.id} captures={captures}/>
+                <CaptureButtons pkmnId={pkmn.id} captures={captures}/>
             </div>
 
 

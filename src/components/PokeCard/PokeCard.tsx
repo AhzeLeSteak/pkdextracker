@@ -50,10 +50,10 @@ const PokeCard = (props: {pk: Pkmn, captures: Capture[], onClick: (pkmn: any) =>
         <div>
 
             {locations.length
-                ? <ScrollPanel style={{width: '100%', height: '140px'}}>
+                ? <ScrollPanel style={{width: '100%', height: '200px'}}>
                     <ListBox options={locations}/>
                 </ScrollPanel>
-                : <ScrollPanel style={{width: '100%', height: '140px'}}>
+                : <ScrollPanel style={{width: '100%', height: '200px'}}>
                     <ListBox options={['Non disponible']}/>
                 </ScrollPanel>
             }

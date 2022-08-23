@@ -33,9 +33,9 @@ function Home(){
                         Génération {g+1}
                     </div>)}
             </Card>
-            {/*<Card className="card-blur" id="card-gens" style={{cursor: 'pointer', textAlign: "center"}} onClick={() => navigate(basePath+'how-to')}>*/}
-            {/*    Comment ça marche ?*/}
-            {/*</Card>*/}
+            <Card className="card-blur" id="card-gens" style={{cursor: 'pointer', textAlign: "center"}} onClick={() => navigate(basePath+'how-to')}>
+                Comment ça marche ?
+            </Card>
 
         </div>
 

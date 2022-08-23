@@ -1,8 +1,8 @@
-div.p-card-body{
+#how-to div.p-card-body{
     padding: 0 !important;
 }
 
-p {
+#how-to .center{
     text-align: center;
     position: relative;
     top: 50%;

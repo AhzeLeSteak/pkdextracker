@@ -5,11 +5,11 @@ import {COLLECTIONS, getFirestore} from "../../firebase/firebase-config";
 import {deleteDoc} from "@firebase/firestore";
 import {useAuthContext} from "../../firebase/AuthProvider";
 import {Capture} from "../../data/Pkmn";
-import './CaptureBadges.css'
 import {Button} from "primereact/button";
 import {useSearchContext} from "../../pages/PokeList";
+import './CaptureBadges.css'
 
-export const CaptureBadges = ({pkmnId, captures}: {pkmnId: number, captures: Capture[]}) => {
+export const CaptureButtons = ({pkmnId, captures, demo}: {pkmnId: number, captures: Capture[], demo ?: true}) => {
 
     const {versionsOfGen} = useSearchContext();
     const {user} = useAuthContext();
@@ -61,20 +61,20 @@ export const CaptureBadges = ({pkmnId, captures}: {pkmnId: number, captures: Cap
 
     return <div style={{textAlign: 'center'}}>
         {versionsOfGen.map((v, i) => {
-                const capture = captures.find(c => c.uid === user?.uid && c.version === v.value);
+                const capture = captures.find(c => (c.uid === user?.uid || demo) && c.version === v.value);
                 const inPc = capture && capture.inPc;
                 return <div key={v.value} className="row" style={{backgroundColor: v.color}}>
                     {loading.includes(i*2) ? loadingBtn('first') :
                         <Button style={capture ? {backgroundColor: v.color, color: 'white'} : {}}
                                       className={'p-button-rounded first ' + (!capture ? 'p-button-outlined' : '')}
                                       label="Pokédex"
-                                      onClick={() => !capture ? setCaptured(v, false, i*2) : deleteCapture(v, i*2)}
+                                      onClick={() => demo ? null : !capture ? setCaptured(v, false, i*2) : deleteCapture(v, i*2)}
                         ></Button>}
                     {loading.includes(i*2+1) ? loadingBtn('second') :
                         <Button style={inPc ? {backgroundColor: v.color, color: 'white'} : {}}
                                       className={'p-button-rounded second ' + (!inPc ? 'p-button-outlined' : '')}
                                       label="PC/équipe"
-                                      onClick={() => setCaptured(v, !inPc, i*2+1)}
+                                      onClick={() => !demo && setCaptured(v, !inPc, i*2+1)}
                         ></Button>}
 
                 </div>

@@ -6,11 +6,14 @@ import {Dialog} from "primereact/dialog";
 import {InputText} from "primereact/inputtext";
 import {FilterProps} from "./SearchToolbar";
 import {DialogFiltres} from "./DialogFiltres";
+import {useNavigate} from "react-router-dom";
 
 export function MobileSpeeddialButton({filters, setFilters}: FilterProps){
     const [searchDialogVisible, setSearchDialogVisible] = useState(false);
     const [filterDialogVisible, setFilterDialogVisible] = useState(false);
     const [newSearch, setNewSearch] = useState('');
+    const navigate = useNavigate();
+
     const dialItems: MenuItem[] = [
         {
             icon: 'pi pi-search',
@@ -20,10 +23,14 @@ export function MobileSpeeddialButton({filters, setFilters}: FilterProps){
             icon: 'pi pi-filter',
             command: () => setFilterDialogVisible(true)
         },
+        {
+            icon: 'pi pi-home',
+            command: () => navigate('/')
+        },
     ];
     return <>
         <SpeedDial model={dialItems} direction="up" className="speeddial-left"
-                   buttonClassName="p-button-help" style={{right: '1em',bottom: '1em', position: 'fixed', zIndex: 99}} />
+                   showIcon="pi pi-list" rotateAnimation={false} style={{right: '1em',bottom: '1em', position: 'fixed', zIndex: 99}} />
 
         <DialogFiltres filters={filters} setFilters={setFilters} visible={filterDialogVisible} setVisible={setFilterDialogVisible}/>
 
