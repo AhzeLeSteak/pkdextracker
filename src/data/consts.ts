@@ -2,7 +2,7 @@ import {Pkmn} from "./Pkmn";
 
 export type VersionName =
     'red' | 'blue' | 'yellow'
-    | 'gold' | 'silver' | 'cristal'
+    | 'gold' | 'silver' | 'crystal'
     | 'ruby' | 'sapphire' | 'emerald'
     | 'diamond' | 'pearl' | 'platinium';
 
@@ -21,7 +21,7 @@ export const GENS: VersionType[][] = [
     [
         {label: 'Or', value: 'gold', color: '#878246'},
         {label: 'Argent', value: 'silver', color: '#87868B'},
-        {label: 'Cristal', value: 'cristal', color: '#5A7F85'}
+        {label: 'Cristal', value: 'crystal', color: '#5A7F85'}
     ],
     [
         {label: 'Rubis', value: 'ruby', color: '#862224'},

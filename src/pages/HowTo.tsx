@@ -25,7 +25,7 @@ export const HowTo = () => {
 
     const pages = useMemo(() => [renderBienvenue(), renderHome(), renderPokeCard(), renderFiltres(), renderRegisterCapture(), renderStats()], []);
     const value = Array.from({length: pages.length}, (_, i) => i)
-    const height = useMemo(() => isMobile ? '80vh' : '70vh', [isMobile]);
+    const height = useMemo(() => isMobile ? '80vh' : '70vh', []);
 
     return <div className="grid" style={{overflowY: 'hidden'}}>
         {isMobile && <SpeedDial model={[]} onClick={() => navigate('/')}

@@ -21,7 +21,7 @@ const PokeCard = (props: {pk: Pkmn, captures: Capture[], onClick: (pkmn: any) =>
         const locations: PartLocation[] = pk.locations.filter(location => location.version === selectedVersionValue);
         locations.unshift(...pk.evolving_methods.filter(l => genIndex > 1 || !l.includes('bonheur')).map(e => ({label: e})));
         return locations;
-    }, [pk, selectedVersionValue]);
+    }, [pk, selectedVersionValue, genIndex]);
 
     const title = <div className="grid">
         <div className="col-fixed" style={{display: 'grid', width: '250px'}}>
