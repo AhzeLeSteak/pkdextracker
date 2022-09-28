@@ -2,6 +2,7 @@ import {ChainLink, MainClient} from 'pokenode-ts'
 import {memoizeMap} from "../../data/memoize";
 import {Location, Pkmn} from "../../data/Pkmn";
 import {captureDetails, evolDetail, getFrName, idFromUrl} from "./additional_data";
+import {VersionName} from "../../data/consts";
 
 const api = new MainClient();
 
@@ -80,7 +81,7 @@ export const get_pokemon = async (id: number): Promise<Pkmn> => {
                 else
                     locations.push({
                         label: location.label,
-                        version: location.version,
+                        version: location.version as VersionName,
                         sub: [{
                             label: location.sub_label,
                             details: location.details

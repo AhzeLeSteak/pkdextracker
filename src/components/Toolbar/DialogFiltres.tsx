@@ -7,6 +7,7 @@ import {SelectButton} from "primereact/selectbutton";
 import {useSearchContext} from "../../pages/PokeList";
 import {Fieldset} from "primereact/fieldset";
 import './DialogFiltres.css';
+import {MaskFilter} from "./MaskEnum";
 
 type DialogProps = {
     visible: boolean,
@@ -19,15 +20,13 @@ export const DialogFiltres = ({filters, setFilters, inline, visible, setVisible}
     const {genIndex, versionIndex, setVersionIndex, versionsOfGen} = useSearchContext();
     const versionName = versionsOfGen[versionIndex].label;
     const versionValue = versionsOfGen[versionIndex].value;
-    const options = [
-        {
-            name: 'Oui',
-            value: true
-        },
-        {
-            name: 'Non',
-            value: false
-        }];
+
+    const handleVersionChange = ({value}: {value: string}) => {
+        if(!value)
+            return;
+        setVersionIndex(GENS[genIndex].findIndex(v => v.value === value));
+        setFilters('maskAvailable', filters.maskAvailable);
+    }
 
     const inside = <>
         <Fieldset legend="Version">
@@ -38,22 +37,22 @@ export const DialogFiltres = ({filters, setFilters, inline, visible, setVisible}
                 <div className="col-12 md:col-5 end">
                     <SelectButton className="ml-4" value={versionValue} options={GENS[genIndex]} optionValue="value"
                                   itemTemplate={(e: VersionType) => <div style={{color: e.value === versionValue ? 'white' : e.color}}>{e.label}</div>}
-                                  onChange={(e) => e.value !== null && setVersionIndex(GENS[genIndex].findIndex(v => v.value === e.value))}/>
+                                  onChange={handleVersionChange}/>
                 </div>
 
 
                 <div className="col-12 md:col-9">
-                    Afficher les pokémons disponibles dans la version {versionName}
+                    Masquer les pokémons disponibles dans la version {versionName}
                 </div>
                 <div className="col-12 md:col-3 end">
-                    <SelectButton value={filters.showAvailable} optionLabel="name" optionValue="value" options={options} onChange={e => setFilters('showAvailable', e.value)} />
+                    <SelectButton value={filters.maskAvailable} optionLabel="name" optionValue="value" options={yes_no_options} onChange={e => setFilters('maskAvailable', e.value)} />
                 </div>
 
                 <div className="col-12 md:col-9">
-                    Afficher les pokémons non disponibles dans la version {versionName}
+                    Masquer les pokémons non disponibles dans la version {versionName}
                 </div>
                 <div className="col-12 md:col-3 end">
-                    <SelectButton value={filters.showUnavailable} itemTemplate={i => <>{i.name}</>} options={options} onChange={e => setFilters('showUnavailable', e.value)} />
+                    <SelectButton value={filters.maskUnavailable} itemTemplate={i => <>{i.name}</>} options={yes_no_options} onChange={e => setFilters('maskUnavailable', e.value)} />
                 </div>
             </div>
         </Fieldset>
@@ -61,18 +60,18 @@ export const DialogFiltres = ({filters, setFilters, inline, visible, setVisible}
         <Fieldset legend="Capture" className="mt-3">
             <div className="grid">
 
-                <div className="col-12 md:col-9">
-                    Afficher les pokémons capturés
+                <div className="col-12 md:col-8">
+                    Masquer les pokémons capturés
                 </div>
-                <div className="col-12 md:col-3 end">
-                    <SelectButton value={filters.showCaptured} itemTemplate={i => <>{i.name}</>} options={options} onChange={e => setFilters('showCaptured', e.value)} />
+                <div className="col-12 md:col-4 end">
+                    <SelectButton value={filters.maskCaptured} itemTemplate={i => <>{i.name}</>} options={mask_options} onChange={e => setFilters('maskCaptured', e.value)} />
                 </div>
 
-                <div className="col-12 md:col-9">
-                    Afficher les pokémons non capturés
+                <div className="col-12 md:col-8">
+                    Masquer les pokémons non capturés
                 </div>
-                <div className="col-12 md:col-3 end">
-                    <SelectButton value={filters.showNotCaptured} itemTemplate={i => <>{i.name}</>} options={options} onChange={e => setFilters('showNotCaptured', e.value)} />
+                <div className="col-12 md:col-4 end">
+                    <SelectButton value={filters.maskNotCaptured} itemTemplate={i => <>{i.name}</>} options={mask_options} onChange={e => setFilters('maskNotCaptured', e.value)} />
                 </div>
             </div>
         </Fieldset>
@@ -84,3 +83,28 @@ export const DialogFiltres = ({filters, setFilters, inline, visible, setVisible}
             {inside}
         </Dialog>
 }
+
+const yes_no_options = [
+    {
+        name: 'Oui',
+        value: true
+    },
+    {
+        name: 'Non',
+        value: false
+    }];
+
+const mask_options = [
+    {
+        name: 'Non',
+        value: MaskFilter.None
+    },
+    {
+        name: 'Par vous',
+        value: MaskFilter.FromYou
+    },
+    {
+        name: 'Par votre groupe',
+        value: MaskFilter.FromGroup
+    },
+]

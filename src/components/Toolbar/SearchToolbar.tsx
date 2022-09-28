@@ -5,13 +5,14 @@ import './SearchToolbar.css';
 import {isMobile} from 'react-device-detect';
 import {MobileSpeeddialButton} from "./MobileSpeeddialButton";
 import {PCSearchBar} from "./PCSearchBar";
+import {MaskFilter} from "./MaskEnum";
 
 export type FilterElements = {
     search: string,
-    showAvailable: boolean,
-    showUnavailable: boolean,
-    showCaptured: boolean,
-    showNotCaptured: boolean,
+    maskAvailable: boolean,
+    maskUnavailable: boolean,
+    maskCaptured: MaskFilter,
+    maskNotCaptured: MaskFilter,
 }
 
 type SearchToolbarProps = {
@@ -30,10 +31,10 @@ export const SearchToolbar = ({onSearchChange, setVersionIndex}: SearchToolbarPr
 
     const [filters, _setFilters] = useState<FilterElements>({
         search: '',
-        showAvailable: true,
-        showUnavailable: true,
-        showCaptured: true,
-        showNotCaptured: true,
+        maskAvailable: false,
+        maskUnavailable: false,
+        maskCaptured: MaskFilter.None,
+        maskNotCaptured: MaskFilter.None,
     });
 
 

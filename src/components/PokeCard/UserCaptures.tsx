@@ -1,9 +1,9 @@
 import React, {useId, useMemo} from "react";
 import {Button} from "primereact/button";
 import {Capture} from "../../data/Pkmn";
-import {useUser} from "../../data/User";
 import {useSearchContext} from "../../pages/PokeList";
 import {Tooltip} from "primereact/tooltip";
+import {useUser} from "../../hooks/useUser";
 
 
 export function UserCaptures({captures}: {captures: Capture[]}){

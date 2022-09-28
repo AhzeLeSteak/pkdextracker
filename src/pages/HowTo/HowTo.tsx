@@ -2,19 +2,20 @@ import './HowTo.css';
 import {useNavigate} from "react-router-dom";
 import {Card} from "primereact/card";
 import {Carousel} from "primereact/carousel";
-import PokeCard from "../components/PokeCard/PokeCard";
-import {Pkmn} from "../data/Pkmn";
+import PokeCard from "../../components/PokeCard/PokeCard";
+import {Pkmn} from "../../data/Pkmn";
 import React, {useMemo} from "react";
 import {isMobile} from "react-device-detect";
-import g2 from "./img/g2.png";
-import g1 from './img/g1.png'
-import {CaptureButtons} from "../components/PokeDetails/CaptureButtons";
-import {VersionName} from "../data/consts";
-import {DialogFiltres} from "../components/Toolbar/DialogFiltres";
-import {FilterElements} from "../components/Toolbar/SearchToolbar";
+import g2 from "../img/g2.png";
+import g1 from '../img/g1.png'
+import {CaptureButtons} from "../../components/PokeDetails/CaptureButtons";
+import {VersionName} from "../../data/consts";
+import {DialogFiltres} from "../../components/Toolbar/DialogFiltres";
+import {FilterElements} from "../../components/Toolbar/SearchToolbar";
 import {ScrollPanel} from "primereact/scrollpanel";
 import {ListBox} from "primereact/listbox";
 import {SpeedDial} from "primereact/speeddial";
+import {MaskFilter} from "../../components/Toolbar/MaskEnum";
 
 const bg = [g1, g2];
 
@@ -112,7 +113,7 @@ const renderPokeCard = () => {
 
 const renderFiltres = () => {
     const f: FilterElements = {
-        search: "", showAvailable: true, showCaptured: true, showNotCaptured: true, showUnavailable: false
+        search: "", maskAvailable: true, maskCaptured: MaskFilter.None, maskNotCaptured: MaskFilter.None, maskUnavailable: false
     }
 
     return <div className="grid">
