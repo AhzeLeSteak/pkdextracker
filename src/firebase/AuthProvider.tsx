@@ -56,7 +56,8 @@ async function register(user: User) {
         return setDoc(newDoc, {
             uid: user.uid,
             name: user.displayName,
-            photoUrl: user.photoURL
+            photoUrl: user.photoURL,
+            inGroup: false
         })
     }
 }

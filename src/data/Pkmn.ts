@@ -1,6 +1,6 @@
 import {VersionName} from "./consts";
 
-export type Location = {version: string, label: string, sub: {label: string, details: string[]}[]};
+export type Location = {version: VersionName, label: string, sub: {label: string, details: string[]}[]};
 
 export type Pkmn = {
     id: number,

@@ -1,23 +1,30 @@
-import {useGroup} from "../hooks/useGroup";
+import {useGroup} from "../../hooks/useGroup";
 import {Card} from "primereact/card";
-import {useUser} from "../hooks/useUser";
 import {Button} from "primereact/button";
 import {useState} from "react";
 import {Dialog} from "primereact/dialog";
+import {UserIdRow} from "./UserRow";
+import {AddToGroup} from "./AddToGroup";
 
 export const Group = () => {
 
-    const {inGroup, usersOfGroup} = useGroup();
+    const {inGroup, usersOfGroup, usersInvited} = useGroup();
     const [showDialog, setShowDialog] = useState(false);
+
 
     if(!inGroup)
         return <>"Gros nullos !"</>
 
+
     return <div className="grid" style={{overflowY: 'hidden'}}>
-        <div className="col-0 md:col-3 lg:col-4"></div>
-        <div className="col-12 md:col-6 lg:col-4">
-            <Card style={{marginTop: '40vh'}} className="card-blur mb-4">
-                {usersOfGroup.map(user => <UserRow userId={user}/>)}
+            <Card className="card-blur centered mb-4">
+                <h2>Membres</h2>
+                {usersOfGroup.map(uid => <UserIdRow key={uid} userId={uid}/>)}
+
+                {!!usersInvited.length && <>
+                    <h2>Invités</h2>
+                    {usersInvited.map(uid => <UserIdRow key={uid} userId={uid}/>)}
+                </>}
 
                 <div className="grid mt-1" onClick={() => setShowDialog(true)} style={{cursor: 'pointer'}}>
                     <div className="col-2">
@@ -28,27 +35,12 @@ export const Group = () => {
                     </div>
                 </div>
             </Card>
-        </div>
 
         <Dialog header="Inviter un utilisateur dans votre groupe" onHide={() => setShowDialog(false)} visible={showDialog}>
-
-
+            <AddToGroup hide={() => setShowDialog(false)}></AddToGroup>
         </Dialog>
 
 
-    </div>
-}
-
-const UserRow = ({userId}: {userId: string}) => {
-    const user = useUser(userId);
-
-    return !user ? <></> : <div className="grid">
-        <div className="col-2">
-            <img referrerPolicy="no-referrer" src={user.photoUrl} style={{borderRadius: '100%'}} width={50} alt="userPP"/>
-        </div>
-        <div className="col">
-            <h3>{user.name}</h3>
-        </div>
     </div>
 }
 

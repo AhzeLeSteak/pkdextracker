@@ -15,10 +15,7 @@ export type FilterElements = {
     maskNotCaptured: MaskFilter,
 }
 
-type SearchToolbarProps = {
-    onSearchChange: (_: FilterElements) => void,
-    setVersionIndex: (_: number) => void
-};
+
 
 export type FilterProps = {
     filters: FilterElements,
@@ -26,7 +23,7 @@ export type FilterProps = {
 }
 
 
-export const SearchToolbar = ({onSearchChange, setVersionIndex}: SearchToolbarProps) => {
+export const SearchToolbar = ({onSearchChange}: {onSearchChange: (_: FilterElements) => void}) => {
 
 
     const [filters, _setFilters] = useState<FilterElements>({

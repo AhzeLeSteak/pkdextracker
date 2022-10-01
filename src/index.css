@@ -13,10 +13,22 @@ code {
     monospace;
 }
 
+.centered{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 40vw
+}
+
 .card-blur{
   background: rgba(255, 255, 255, 0.9) !important;
   border-radius: 16px !important;
   //backdrop-filter: blur(6px);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
   border: 1px solid rgba(255, 255, 255, 0.28) !important;
+}
+
+span.p-autocomplete input.p-inputtext{
+  width: 100%
 }

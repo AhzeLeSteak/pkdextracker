@@ -25,7 +25,6 @@ export const DialogFiltres = ({filters, setFilters, inline, visible, setVisible}
         if(!value)
             return;
         setVersionIndex(GENS[genIndex].findIndex(v => v.value === value));
-        setFilters('maskAvailable', filters.maskAvailable);
     }
 
     const inside = <>

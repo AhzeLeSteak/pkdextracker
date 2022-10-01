@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import {useAuthContext} from "./firebase/AuthProvider";
 import {HowTo} from "./pages/HowTo/HowTo";
 import {RetrieveData} from "./pages/RetrieveData/RetrieveData";
-import {Group} from "./pages/Group";
+import {Group} from "./pages/Group/Group";
 
 const GENERATIONS = Array.from({length: 8}, (_, i) => i);
 

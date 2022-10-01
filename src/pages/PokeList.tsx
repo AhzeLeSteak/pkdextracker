@@ -62,7 +62,7 @@ function PokeList({genIndex}: {genIndex: number}) {
             selectedVersionValue,
             getPokemon: (id) => allPkmn[id-1]}}
         >
-            <SearchToolbar onSearchChange={onSearchChange} setVersionIndex={setVersionIndex}></SearchToolbar>
+            <SearchToolbar onSearchChange={onSearchChange}></SearchToolbar>
             <div className={'grid '+(isMobile ? '' : 'pt-8')}>
                 <div className="col-0 md:col-1 lg:col-1"></div>
                 <div className="col-12 md:col-10 lg:col-10">
@@ -88,6 +88,7 @@ function PokeList({genIndex}: {genIndex: number}) {
 function filterPokemons(genIndex: number, selectedVersion: VersionName, versionsOfGen: VersionType[], captures: Capture[], f: FilterElements, uid: string, group_uids: string[]){
     const nbPk = PKMN_COUNT_BY_GEN[genIndex];
     const startIndex = PKMN_COUNT_BY_GEN.slice(0, genIndex).reduce((a, b) => a+b, 0);
+    const index = parseInt(f.search);
     return allPkmn.slice(startIndex, nbPk+startIndex).filter(pk => {
 
         //recherche dispo / pas dispo
@@ -101,21 +102,20 @@ function filterPokemons(genIndex: number, selectedVersion: VersionName, versions
         const captured_by_user = pk_captures.some(c => c.uid === uid);
         const captured_by_group = pk_captures.some(c => group_uids.includes(c.uid));
 
-        if(f.maskCaptured === MaskFilter.FromYou && captured_by_user || f.maskCaptured === MaskFilter.FromGroup && captured_by_group)
+        if((f.maskCaptured === MaskFilter.FromYou && captured_by_user) || (f.maskCaptured === MaskFilter.FromGroup && captured_by_group))
             return false;
 
-        if(f.maskNotCaptured === MaskFilter.FromYou && !captured_by_user || f.maskNotCaptured === MaskFilter.FromGroup && !captured_by_group)
+        if((f.maskNotCaptured === MaskFilter.FromYou && !captured_by_user) || (f.maskNotCaptured === MaskFilter.FromGroup && !captured_by_group))
             return false;
 
         if (f.search === '')
             return true;
 
         //recherche index
-        const index = parseInt(f.search);
         if (!isNaN(index))
             return pk.id === index;
 
-        //recherche par nom
+        //recherche par nom / lieu
         const srch = f.search.toLowerCase();
         return pk.name.toLowerCase().includes(srch)
             || pk.base_name.toLowerCase().includes(srch)
