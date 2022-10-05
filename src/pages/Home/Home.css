@@ -34,3 +34,8 @@
 #card-user .p-card-body{
     padding: 0.75rem 0 0 0;
 }
+
+.action-btn{
+    width: 30px !important;
+    height: 30px !important;
+}

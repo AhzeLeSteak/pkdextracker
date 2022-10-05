@@ -22,6 +22,12 @@ export type FilterProps = {
     setFilters: <K extends keyof FilterElements>(key: K, val: FilterElements[K]) => void
 }
 
+export type DialogProps = {
+    visible: boolean,
+    setVisible: (_: boolean) => void,
+    inline ?: true
+}
+
 
 export const SearchToolbar = ({onSearchChange}: {onSearchChange: (_: FilterElements) => void}) => {
 

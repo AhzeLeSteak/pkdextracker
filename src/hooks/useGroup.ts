@@ -1,42 +1,52 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {collection, getDocs, query, where} from "firebase/firestore";
 import {COLLECTIONS, getFirestore} from "../firebase/firebase-config";
 import {useAuthContext} from "../firebase/AuthProvider";
 import {Group} from "../data/User";
+import {useCollection} from "react-firebase-hooks/firestore";
 
 export const useGroup = () => {
     const {user} = useAuthContext();
 
-    const [groupId, setGroupId] = useState('');
-    const [usersOfGroup, setUsersOfGroup] = useState<string[]>([user!.uid!]);
-    const [usersInvited, setUsersInvited] = useState<string[]>([]);
-    const [inGroup, setInGroup] = useState(false);
-    const [groupDocRef, setGroupDocRef] = useState<any>()
+
+    const q = useMemo(() => {
+        const groups = collection(getFirestore(), COLLECTIONS.GROUPS);
+        return query(groups, where('users', 'array-contains', user?.uid));
+    }, [user]);
+
+    const [querySnapshot] = useCollection(q);
+    const docs = querySnapshot?.docs;
+    const inGroup = !!(docs?.length);
+    const group = inGroup ? docs[0].data() as Group: undefined;
+    const groupDocRef = inGroup ? docs[0].ref : undefined;
+
+
+    return {
+        groupDocRef,
+        group,
+        inGroup
+    }
+}
+
+
+export const useInvitation = () => {
+    const {user} = useAuthContext();
+    const [groups, setGroups] = useState<Group[]>([]);
 
     useEffect(() => {
         if(!user) return;
         const groups = collection(getFirestore(), COLLECTIONS.GROUPS);
-        let groupsQuery = query(groups, where('users', 'array-contains', user?.uid));
+        let groupsQuery = query(groups, where('invited', 'array-contains', user?.uid));
         getDocs(groupsQuery).then(({docs}) => {
             if(!docs.length)
                 return;
-            const doc = docs[0];
-            const group = doc.data() as Group;
-            setInGroup(true);
-            setGroupDocRef(doc.ref);
-            setGroupId(doc.id);
-            setUsersOfGroup(group.users);
-            setUsersInvited(group.invited || [])
-
-        })
+            const groups = docs.map(doc => doc.data() as Group);
+            setGroups(groups);
+        });
 
     }, [user]);
 
     return {
-        groupDocRef,
-        usersOfGroup,
-        usersInvited,
-        groupId,
-        inGroup
+        groups
     }
 }

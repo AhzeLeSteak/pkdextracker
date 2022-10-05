@@ -2,14 +2,14 @@ import {AutoComplete} from "primereact/autocomplete";
 import {collection, getDocs, query, updateDoc, where} from "firebase/firestore";
 import {COLLECTIONS, getFirestore} from "../../firebase/firebase-config";
 import {useEffect, useState} from "react";
-import {UserRow} from "./UserRow";
+import {UserRow} from "./ImgTxtBtnRow";
 import {User} from "../../data/User";
 import {Button} from "primereact/button";
 import {useGroup} from "../../hooks/useGroup";
 
 export const AddToGroup = (props: {hide: () => void}) => {
 
-    const {groupDocRef, usersInvited} = useGroup();
+    const {groupDocRef, group} = useGroup();
     const [userSearchStr, setUserSearchStr] = useState('');
     const [searchResult, setSearchResult] = useState<User[]>([]);
     const [usersToAdd, setUsersToAdd] = useState<User[]>([]);
@@ -40,8 +40,8 @@ export const AddToGroup = (props: {hide: () => void}) => {
     };
 
     const inviteUsers = () => {
-        updateDoc(groupDocRef, {
-            invited: [...usersToAdd.map(u => u.uid), ...usersInvited]
+        updateDoc(groupDocRef!, {
+            invited: [...usersToAdd.map(u => u.uid), ...group!.invited]
         }).then(props.hide);
     };
 

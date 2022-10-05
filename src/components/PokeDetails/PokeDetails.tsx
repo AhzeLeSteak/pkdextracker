@@ -5,7 +5,7 @@ import {Splitter, SplitterPanel} from "primereact/splitter";
 import './PokeDetails.css';
 import {Capture, Pkmn} from "../../data/Pkmn";
 import {CaptureButtons} from "./CaptureButtons";
-import {useSearchContext} from "../../pages/PokeList";
+import {useDataContext} from "../../pages/PokeList";
 import {isMobile} from "react-device-detect";
 import {Carousel} from "primereact/carousel";
 
@@ -20,7 +20,7 @@ type DialogEncouterProps =  {
 
 export const PokeDetails = ({pkmnId, setPkmnId, pokemons, showDialog, setShowDialog, captures}: DialogEncouterProps) => {
 
-    const {selectedVersionValue, genIndex} = useSearchContext();
+    const {selectedVersionValue, genIndex} = useDataContext();
 
     const [locationIndex, setLocationIndex] = useState<number>(-1);
     const [subIndex, setSubIndex] = useState<number>(-1)

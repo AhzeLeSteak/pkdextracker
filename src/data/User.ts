@@ -7,5 +7,7 @@ export interface User{
 
 export interface Group{
     users: string[],
-    invited: string[]
+    invited: string[],
+    name: string,
+    owner_uid: string
 }

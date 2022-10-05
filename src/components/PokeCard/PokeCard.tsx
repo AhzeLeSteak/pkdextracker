@@ -7,14 +7,14 @@ import {ListBox} from "primereact/listbox";
 import {Badge} from "primereact/badge";
 import {isDispoInVersion} from "../Toolbar/SearchToolbar";
 import {UserCaptures} from "./UserCaptures";
-import {useSearchContext} from "../../pages/PokeList";
+import {useDataContext} from "../../pages/PokeList";
 
 
 type PartLocation = Partial<Location>;
 
 const PokeCard = (props: {pk: Pkmn, captures: Capture[], onClick: (pkmn: any) => any}) => {
 
-    const {selectedVersionValue, versionsOfGen, genIndex} = useSearchContext();
+    const {selectedVersionValue, versionsOfGen, genIndex} = useDataContext();
     const pk = props.pk;
 
     const locations: PartLocation[] = useMemo(() => {

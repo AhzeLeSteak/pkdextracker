@@ -6,12 +6,12 @@ import {deleteDoc} from "@firebase/firestore";
 import {useAuthContext} from "../../firebase/AuthProvider";
 import {Capture} from "../../data/Pkmn";
 import {Button} from "primereact/button";
-import {useSearchContext} from "../../pages/PokeList";
+import {useDataContext} from "../../pages/PokeList";
 import './CaptureBadges.css'
 
 export const CaptureButtons = ({pkmnId, captures, demo}: {pkmnId: number, captures: Capture[], demo ?: true}) => {
 
-    const {versionsOfGen} = useSearchContext();
+    const {versionsOfGen} = useDataContext();
     const {user} = useAuthContext();
 
     const [loading, setLoading] = useState<number[]>([]);

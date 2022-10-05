@@ -1,10 +1,10 @@
-import React, {createContext, useContext, useState} from 'react';
+import React, {createContext, useContext, useEffect, useState} from 'react';
 import {Capture, Pkmn} from "../data/Pkmn";
 import PokeCard from "../components/PokeCard/PokeCard";
 import {PokeDetails} from "../components/PokeDetails/PokeDetails";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {COLLECTIONS, getFirestore} from "../firebase/firebase-config";
-import {collection, query, where} from 'firebase/firestore'
+import {collection, getDocs, query, where} from 'firebase/firestore'
 import {allPkmn, GENS, PKMN_COUNT_BY_GEN, VersionName, VersionType} from "../data/consts";
 import {FilterElements, isDispoInVersion, SearchToolbar} from "../components/Toolbar/SearchToolbar";
 import {isMobile} from "react-device-detect";
@@ -18,7 +18,7 @@ export type SearchContextType = {
     setVersionIndex: (_: number) => void,
     selectedVersionValue: string,
     versionsOfGen: VersionType[],
-    getPokemon: (id: number) => Pkmn | null,
+    captures: Capture[]
 }
 const SearchContext = createContext<SearchContextType>({
     genIndex: 0,
@@ -26,10 +26,10 @@ const SearchContext = createContext<SearchContextType>({
     setVersionIndex: () => null,
     selectedVersionValue: 'red',
     versionsOfGen: GENS[0],
-    getPokemon: () => null
+    captures: []
 });
 
-export const useSearchContext = () => useContext(SearchContext);
+export const useDataContext = () => useContext(SearchContext);
 
 
 function PokeList({genIndex}: {genIndex: number}) {
@@ -42,47 +42,49 @@ function PokeList({genIndex}: {genIndex: number}) {
     const [showDialog, setShowDialog] = useState(false);
     const [selectedPkmnId, setSelectedPkmnId] = useState<number>(0);
 
-    const {usersOfGroup} = useGroup();
+    const {group} = useGroup();
     const {user} = useAuthContext();
+    const group_users = group ? group.users : [];
 
 
     const captureCollection = collection(getFirestore(), COLLECTIONS.CAPTURES);
-    const captureQuery = query(captureCollection, where('uid', 'in', usersOfGroup));
-    const [captures] = useCollectionData(captureQuery) as unknown as [Capture[] | undefined, boolean];
+    const captureQuery = query(captureCollection, where('uid', 'in', group_users));
+    let [captures] = useCollectionData(captureQuery) as unknown as [Capture[], boolean];
+    if(!captures)
+        captures = [];
 
     const selectedVersionValue = GENS[genIndex][versionIndex].value;
-    const onSearchChange = (f: FilterElements) => setPokemons(filterPokemons(genIndex, selectedVersionValue, GENS[genIndex], captures || [], f, user!.uid, usersOfGroup));
+    const onSearchChange = (f: FilterElements) => setPokemons(filterPokemons(genIndex, selectedVersionValue, GENS[genIndex], captures || [], f, user!.uid, group_users));
 
 
-    return <>
-        <SearchContext.Provider value={{
-            genIndex, versionIndex,
-            setVersionIndex,
-            versionsOfGen: GENS[genIndex],
-            selectedVersionValue,
-            getPokemon: (id) => allPkmn[id-1]}}
-        >
-            <SearchToolbar onSearchChange={onSearchChange}></SearchToolbar>
-            <div className={'grid '+(isMobile ? '' : 'pt-8')}>
-                <div className="col-0 md:col-1 lg:col-1"></div>
-                <div className="col-12 md:col-10 lg:col-10">
-                    <div className="grid">
-                        {pokemons.map((pk, i) => (
-                            <div key={pk.id} className="col-12 md:col-4 lg:col-3">
-                                <PokeCard pk={pk} captures={captures?.filter(c => c.pkmnId === pk.id) || []}
-                                onClick={() => {setSelectedPkmnId(i);setShowDialog(true)}}/>
-                            </div>))}
-                    </div>
+    return <SearchContext.Provider value={{
+        genIndex, versionIndex,
+        setVersionIndex,
+        versionsOfGen: GENS[genIndex],
+        selectedVersionValue,
+        captures
+    }}
+    >
+        <SearchToolbar onSearchChange={onSearchChange}></SearchToolbar>
+        <div className={'grid '+(isMobile ? '' : 'pt-8')}>
+            <div className="col-0 md:col-1 lg:col-1"></div>
+            <div className="col-12 md:col-10 lg:col-10">
+                <div className="grid">
+                    {pokemons.map((pk, i) => (
+                        <div key={pk.id} className="col-12 md:col-4 lg:col-3">
+                            <PokeCard pk={pk} captures={captures?.filter(c => c.pkmnId === pk.id) || []}
+                                      onClick={() => {setSelectedPkmnId(i);setShowDialog(true)}}/>
+                        </div>))}
                 </div>
             </div>
+        </div>
 
-            {showDialog && <PokeDetails pkmnId={selectedPkmnId} setPkmnId={setSelectedPkmnId} pokemons={pokemons}
-                         showDialog={showDialog} setShowDialog={setShowDialog}
-                         captures={captures?.filter(c => c.pkmnId === pokemons[selectedPkmnId].id) || []}/>
-            }
+        {showDialog && <PokeDetails pkmnId={selectedPkmnId} setPkmnId={setSelectedPkmnId} pokemons={pokemons}
+                                    showDialog={showDialog} setShowDialog={setShowDialog}
+                                    captures={captures?.filter(c => c.pkmnId === pokemons[selectedPkmnId].id) || []}/>
+        }
 
-        </SearchContext.Provider>
-    </>;
+    </SearchContext.Provider>;
 }
 
 function filterPokemons(genIndex: number, selectedVersion: VersionName, versionsOfGen: VersionType[], captures: Capture[], f: FilterElements, uid: string, group_uids: string[]){

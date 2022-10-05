@@ -4,7 +4,7 @@ import {get_pokemon} from "./get_pokemon";
 
 export const RetrieveData = () => {
 
-    const [pokemons, setPokemons] = useState(new Map<number, Pkmn>());
+    const [pokemons] = useState(new Map<number, Pkmn>());
 
     useEffect(() => {
         const p = [];

@@ -29,6 +29,13 @@ code {
   border: 1px solid rgba(255, 255, 255, 0.28) !important;
 }
 
+/*
+Override prime theme
+ */
 span.p-autocomplete input.p-inputtext{
   width: 100%
+}
+
+div.p-selectbutton.p-buttonset.p-component{
+    box-shadow: none;
 }
