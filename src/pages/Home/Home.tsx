@@ -7,14 +7,14 @@ import {Tooltip} from "primereact/tooltip";
 import {useNavigate} from "react-router-dom";
 import {Button} from "primereact/button";
 import {Badge} from "primereact/badge";
-import {useInvitation} from "../../hooks/useGroup";
+import {useGroup, useInvitation} from "../../hooks/useGroup";
 
 const bg = [g1, g2];
 
 function Home(){
     const {user, logout} = useAuthContext();
     const navigate = useNavigate();
-    const invitation = useInvitation().groups.length;
+    const invitation = useInvitation().length;
 
     return <div className="grid" style={{marginTop: '10vh'}} >
         <div className="col-0 md:col-2 lg:col-2"></div>

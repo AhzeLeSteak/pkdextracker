@@ -1,16 +1,19 @@
-import {createContext, useContext, useEffect, useState} from "react";
-import {getAuth, getFirestore, loginWithGoogle, logoutWithGoogle} from "./firebase-config";
-import {User} from 'firebase/auth'
-import {doc, getDoc, setDoc} from "firebase/firestore";
+import {createContext, useContext, useEffect, useMemo, useState} from "react";
+import {COLLECTIONS, getAuth, getFirestore, loginWithGoogle, logoutWithGoogle} from "./firebase-config";
+import {User as GoogleUser} from 'firebase/auth'
+import {User} from '../data/User'
+import {collection, doc, getDoc, getDocs, Query, query, setDoc, where, DocumentReference} from "firebase/firestore";
 
 export type AuthContextType = {
-    user ?: User,
+    user ?: GoogleUser,
     login: () => void,
     logout: () => void,
+    getUserRef: () => Promise<DocumentReference<User>> | null
 }
 const AuthContext = createContext<AuthContextType>({
     login: () => null,
     logout: () => null,
+    getUserRef: () => null
 });
 
 export const useAuthContext = () => useContext(AuthContext);
@@ -19,12 +22,12 @@ function AuthProvider(props: any){
 
     const auth = getAuth();
 
-    const [user, setUser] = useState<User | undefined>();
+    const [user, setUser] = useState<GoogleUser | undefined>();
     const [loading, setLoading] = useState(true);
 
 
     useEffect(() => {
-        auth.onAuthStateChanged(async (newUser) => {
+        auth.onAuthStateChanged(async (newUser: GoogleUser | null) => {
             setUser(newUser ?? undefined);
             setLoading(false);
             if (newUser)
@@ -41,7 +44,16 @@ function AuthProvider(props: any){
     const logout = () => logoutWithGoogle()
 
 
-    return <AuthContext.Provider value={{user, login, logout}}>
+
+    const getUserRef = useMemo(() => {
+        if(!user)
+            return () => null;
+        const query_user = query(collection(getFirestore(), COLLECTIONS.USERS), where('uid', '==', user?.uid)) as Query<User>;
+        return () => getDocs(query_user).then(res => res.docs[0].ref);
+    }, [user]);
+
+
+    return <AuthContext.Provider value={{user, login, logout, getUserRef}}>
         {!loading && props.children}
     </AuthContext.Provider>
 }
@@ -50,8 +62,8 @@ function AuthProvider(props: any){
  * Enregistre l'utilisateur dans la collection 'users' s'il n'y est pas déjà
  * @param user
  */
-async function register(user: User) {
-    const newDoc = doc(getFirestore(), 'users/' + user.uid);
+async function register(user: GoogleUser) {
+    const newDoc = doc(getFirestore(), COLLECTIONS.USERS + user.uid);
     if (!(await getDoc(newDoc)).exists()){
         return setDoc(newDoc, {
             uid: user.uid,

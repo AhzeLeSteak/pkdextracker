@@ -4,7 +4,7 @@ import PokeCard from "../components/PokeCard/PokeCard";
 import {PokeDetails} from "../components/PokeDetails/PokeDetails";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {COLLECTIONS, getFirestore} from "../firebase/firebase-config";
-import {collection, getDocs, query, where} from 'firebase/firestore'
+import {collection, getDocs, Query, query, where} from 'firebase/firestore'
 import {allPkmn, GENS, PKMN_COUNT_BY_GEN, VersionName, VersionType} from "../data/consts";
 import {FilterElements, isDispoInVersion, SearchToolbar} from "../components/Toolbar/SearchToolbar";
 import {isMobile} from "react-device-detect";
@@ -44,12 +44,12 @@ function PokeList({genIndex}: {genIndex: number}) {
 
     const {group} = useGroup();
     const {user} = useAuthContext();
-    const group_users = group ? group.users : [];
+    const group_users = group ? group.users : [user!.uid];
 
 
     const captureCollection = collection(getFirestore(), COLLECTIONS.CAPTURES);
-    const captureQuery = query(captureCollection, where('uid', 'in', group_users));
-    let [captures] = useCollectionData(captureQuery) as unknown as [Capture[], boolean];
+    const captureQuery = query(captureCollection, where('uid', 'in', group_users)) as Query<Capture>;
+    let [captures] = useCollectionData(captureQuery);
     if(!captures)
         captures = [];
 

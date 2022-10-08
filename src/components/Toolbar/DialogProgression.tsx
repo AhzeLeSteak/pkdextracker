@@ -49,7 +49,7 @@ export const DialogProgression = ({visible, setVisible}: DialogProps) => {
         };
     }, [captures, versionsOfGen, byUser, versionFilter])
 
-    return <Dialog header="Progression" visible={visible} style={{width: isMobile ? '100vw' : '75vw', maxWidth: '1600px'}}
+    return <Dialog header="Progression" visible={visible} style={{width: isMobile ? '100vw' : '50w', maxWidth: '1600px'}}
                    onHide={() => setVisible(false)} draggable={false}>
         <div className="grid">
 
@@ -72,8 +72,10 @@ export const DialogProgression = ({visible, setVisible}: DialogProps) => {
                           onChange={e => setVersionFilter(e.value)}
             />
 
-            <div className="col-3"></div>
-            <Chart type="pie" data={chartData} className="col-6"/>
+            <Chart type="pie"
+                   data={chartData}
+                   style={{width: '500px', left: '50%', transform: 'translateX(-50%)'}}
+            />
         </div>
 
     </Dialog>
