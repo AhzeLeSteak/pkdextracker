@@ -47,7 +47,7 @@ export const DialogProgression = ({visible, setVisible}: DialogProps) => {
                 }
             ]
         };
-    }, [captures, versionsOfGen, byUser, versionFilter])
+    }, [captures, versionsOfGen, byUser, versionFilter, genIndex])
 
     return <Dialog header="Progression" visible={visible} style={{width: isMobile ? '100vw' : '50w', maxWidth: '1600px'}}
                    onHide={() => setVisible(false)} draggable={false}>
@@ -59,7 +59,7 @@ export const DialogProgression = ({visible, setVisible}: DialogProps) => {
                               optionLabel="name"
                               optionValue="value"
                               className="col-8"
-                              options={[{name: 'Vous', value: 'true'}, {name: 'Votre groupe', value: false}]}
+                              options={[{name: 'Vous', value: true}, {name: 'Votre groupe', value: false}]}
                               onChange={e => setByUser(e.value)} />
             </>}
 

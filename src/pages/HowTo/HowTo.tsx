@@ -113,7 +113,12 @@ const renderPokeCard = () => {
 
 const renderFiltres = () => {
     const f: FilterElements = {
-        search: "", maskAvailable: true, maskCaptured: MaskFilter.None, maskNotCaptured: MaskFilter.None, maskUnavailable: false
+        search: "",
+        maskAvailable: true,
+        maskCaptured: MaskFilter.None,
+        maskNotCaptured: MaskFilter.None,
+        maskUnavailable: false,
+        nationalDex: false
     }
 
     return <div className="grid">

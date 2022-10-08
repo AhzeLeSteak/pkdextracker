@@ -41,7 +41,7 @@ const PokeCard = (props: {pk: Pkmn, captures: Capture[], onClick: (pkmn: any) =>
                 <img src={pk.sprite} alt={'#'+pk.id} className="pk-img"/>
             </div>
             <div className="col-6">
-                {props.captures.map(c => c.uid).filter((el, index, array) => array.findIndex(x => x === el) === index)
+                {props.captures.filter(c => versionsOfGen.some(v => v.value === c.version)).map(c => c.uid).filter((el, index, array) => array.findIndex(x => x === el) === index)
                     .map(uid => props.captures.filter(capture => capture.uid === uid))
                     .map((userCaptures, i) => <UserCaptures key={i} captures={userCaptures}/>)}
             </div>

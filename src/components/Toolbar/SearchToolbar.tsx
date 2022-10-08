@@ -13,6 +13,7 @@ export type FilterElements = {
     maskUnavailable: boolean,
     maskCaptured: MaskFilter,
     maskNotCaptured: MaskFilter,
+    nationalDex: boolean
 }
 
 
@@ -38,6 +39,7 @@ export const SearchToolbar = ({onSearchChange}: {onSearchChange: (_: FilterEleme
         maskUnavailable: false,
         maskCaptured: MaskFilter.None,
         maskNotCaptured: MaskFilter.None,
+        nationalDex: false
     });
 
 

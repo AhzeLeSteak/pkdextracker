@@ -22,7 +22,7 @@ export function PCSearchBar({filters, setFilters}: FilterProps){
     const right = <>
         <Button label="Progression" className="p-button-secondary pl-3 pr-3" onClick={() => setProgressionVisible(true)}/>
         <Divider layout="vertical"/>
-        <Button label="Filtres" className="p-button-secondary pl-3 pr-3" onClick={() => setFiltresVisibles(true)}/>
+        <Button label="Paramètres" className="p-button-secondary pl-3 pr-3" onClick={() => setFiltresVisibles(true)}/>
         <Divider layout="vertical"/>
         <InputText placeholder="Recherche (nom, id, lieu)" style={{width: '17rem'}}
                    value={filters.search} onChange={e => setFilters('search', e.target.value)}/>;

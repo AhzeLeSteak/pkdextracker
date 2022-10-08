@@ -7,7 +7,7 @@ import {Tooltip} from "primereact/tooltip";
 import {useNavigate} from "react-router-dom";
 import {Button} from "primereact/button";
 import {Badge} from "primereact/badge";
-import {useGroup, useInvitation} from "../../hooks/useGroup";
+import {useInvitation} from "../../hooks/useGroup";
 
 const bg = [g1, g2];
 

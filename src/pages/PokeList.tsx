@@ -1,10 +1,10 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
+import React, {createContext, useContext, useState} from 'react';
 import {Capture, Pkmn} from "../data/Pkmn";
 import PokeCard from "../components/PokeCard/PokeCard";
 import {PokeDetails} from "../components/PokeDetails/PokeDetails";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {COLLECTIONS, getFirestore} from "../firebase/firebase-config";
-import {collection, getDocs, Query, query, where} from 'firebase/firestore'
+import {collection, Query, query, where} from 'firebase/firestore'
 import {allPkmn, GENS, PKMN_COUNT_BY_GEN, VersionName, VersionType} from "../data/consts";
 import {FilterElements, isDispoInVersion, SearchToolbar} from "../components/Toolbar/SearchToolbar";
 import {isMobile} from "react-device-detect";
@@ -91,7 +91,7 @@ function filterPokemons(genIndex: number, selectedVersion: VersionName, versions
     const nbPk = PKMN_COUNT_BY_GEN[genIndex];
     const startIndex = PKMN_COUNT_BY_GEN.slice(0, genIndex).reduce((a, b) => a+b, 0);
     const index = parseInt(f.search);
-    return allPkmn.slice(startIndex, nbPk+startIndex).filter(pk => {
+    return allPkmn.slice(f.nationalDex ? 0 :startIndex, nbPk+startIndex).filter(pk => {
 
         //recherche dispo / pas dispo
         const dispo = isDispoInVersion(selectedVersion, pk);
