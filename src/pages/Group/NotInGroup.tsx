@@ -10,6 +10,7 @@ import {useInvitation} from "../../hooks/useGroup";
 import {InputText} from "primereact/inputtext";
 import {Dialog} from "primereact/dialog";
 import React, {useState} from "react";
+import {isMobile} from "react-device-detect";
 
 export const NotInGroup = ({footer}: {footer: JSX.Element}) => {
     const groups = useInvitation();
@@ -33,7 +34,7 @@ export const NotInGroup = ({footer}: {footer: JSX.Element}) => {
     };
 
     return <div className="grid" style={{overflowY: 'hidden'}}>
-        <Card className="card-blur centered" footer={footer}>
+        <Card className="card-blur centered" footer={footer} style={isMobile ? {width: '100%'}: {}}>
 
             <div className="grid mt-1" onClick={() => setCreateGroupDialogVisible(true)} style={{cursor: 'pointer'}}>
                 <div className="col-2">

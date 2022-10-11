@@ -5,7 +5,7 @@ import {GENS} from "../../data/consts";
 import {InputText} from "primereact/inputtext";
 import React, {useState} from "react";
 import {Button} from "primereact/button";
-import {DialogFiltres} from "./DialogFiltres";
+import {DialogParametres} from "./DialogParametres";
 import {Divider} from "primereact/divider";
 import {DialogProgression} from "./DialogProgression";
 
@@ -41,7 +41,7 @@ export function PCSearchBar(){
             className="mb-4 pb-2 pt-2" left={left} right={right}
         />
         <Divider layout="vertical"/>
-        <DialogFiltres visible={filtresVisibles} setVisible={setFiltresVisibles}/>
+        <DialogParametres visible={filtresVisibles} setVisible={setFiltresVisibles}/>
         <DialogProgression visible={progressionVisible} setVisible={setProgressionVisible}/>
 
     </>

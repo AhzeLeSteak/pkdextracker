@@ -11,6 +11,7 @@ import {COLLECTIONS, getFirestore} from "../../firebase/firebase-config";
 import {Group} from "../../data/User";
 import {useNavigate} from "react-router-dom";
 import {deleteDoc} from "@firebase/firestore";
+import {isMobile} from "react-device-detect";
 
 export const InGroup = ({footer}: {footer: JSX.Element}) => {
 
@@ -53,7 +54,7 @@ export const InGroup = ({footer}: {footer: JSX.Element}) => {
     };
 
     return <div className="grid" style={{overflowY: 'hidden'}}>
-        <Card className="card-blur centered mb-4" footer={footer}>
+        <Card className="card-blur centered mb-4" footer={footer} style={isMobile ? {width: '100%'}: {}}>
             <h2 style={{marginTop: 0}}>Membres</h2>
             {group.users.map(uid => <UserIdRow key={uid} userId={uid}/>)}
 

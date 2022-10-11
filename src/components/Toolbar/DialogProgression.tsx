@@ -21,8 +21,11 @@ export const DialogProgression = ({visible, setVisible}: DialogProps) => {
     const [versionFilter, setVersionFilter] = useState<VersionName | 'none'>('red');
 
     const genOptions = useMemo(() => {
-        return [...GENS[genIndex], {label: 'Toutes les versions', value: 'none', color: '#000000'}];
+        return [...GENS[genIndex], {label: 'Toutes', value: 'none', color: '#000000'}];
     }, [genIndex]);
+
+
+    const h4Style: React.CSSProperties = isMobile ? {marginBottom: 0, textAlign: 'center'} : {};
 
 
     const chartData = useMemo(() => {
@@ -55,20 +58,22 @@ export const DialogProgression = ({visible, setVisible}: DialogProps) => {
         <div className="grid">
 
             {inGroup && <>
-                <h4 className="col-4">Pokémons capturés par</h4>
+                <h4 className="col-12 md:col-4" style={h4Style}>Pokémons capturés par</h4>
                 <SelectButton value={byUser}
                               optionLabel="name"
                               optionValue="value"
-                              className="col-8"
+                              className="col"
+                              style={{textAlign: "center"}}
                               options={[{name: 'Vous', value: true}, {name: 'Votre groupe', value: false}]}
                               onChange={e => setByUser(e.value)} />
             </>}
 
-            <h4 className="col-4">Capture de la version</h4>
+            <h4 className="col-12 md:col-4" style={h4Style}>Capture de la version</h4>
             <SelectButton value={versionFilter}
                           options={genOptions}
                           optionValue="value"
-                          className="col-8"
+                          className="col"
+                          style={{textAlign: "center"}}
                           itemTemplate={(e: VersionType) => <div style={{color: e.value === versionFilter ? 'white' : e.color}}>{e.label}</div>}
                           onChange={e => setVersionFilter(e.value)}
             />

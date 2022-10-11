@@ -10,7 +10,7 @@ import g2 from "../Home/img/g2.png";
 import g1 from '../Home/img/g1.png'
 import {CaptureButtons} from "../../components/PokeDetails/CaptureButtons";
 import {VersionName} from "../../data/consts";
-import {DialogFiltres} from "../../components/Toolbar/DialogFiltres";
+import {DialogParametres} from "../../components/Toolbar/DialogParametres";
 import {FilterElements} from "../../components/Toolbar/SearchToolbar";
 import {ScrollPanel} from "primereact/scrollpanel";
 import {ListBox} from "primereact/listbox";
@@ -135,7 +135,7 @@ const renderFiltres = () => {
 
         <div className="col-0 md:col-2"></div>
         <div className="col-12 md:col-8">
-            <DialogFiltres visible={false} setVisible={() => null} inline={true}/>
+            <DialogParametres visible={false} setVisible={() => null} inline={true}/>
         </div>
     </div>
 };

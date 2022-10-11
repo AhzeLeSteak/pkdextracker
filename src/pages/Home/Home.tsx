@@ -21,7 +21,7 @@ function Home(){
         <div className="col-12 md:col-8 lg:col-8">
             <Card className="card-blur mb-4 justify-content-center text-center" id="card-user" data-pr-tooltip="Se déconnecter">
                 <div className="grid">
-                    <div className="col-3" style={{display: 'flex', justifyContent: 'left'}}>
+                    <div className="col-12 md:col4" style={{display: 'flex', justifyContent: 'center'}}>
                         <Tooltip target="#userPP"/>
                         <Tooltip target="#logout"/>
                         <Tooltip target="#group"/>
