@@ -11,11 +11,11 @@ import g1 from '../Home/img/g1.png'
 import {CaptureButtons} from "../../components/PokeDetails/CaptureButtons";
 import {VersionName} from "../../data/consts";
 import {DialogParametres} from "../../components/Toolbar/DialogParametres";
-import {FilterElements} from "../../components/Toolbar/SearchToolbar";
 import {ScrollPanel} from "primereact/scrollpanel";
 import {ListBox} from "primereact/listbox";
 import {SpeedDial} from "primereact/speeddial";
-import {MaskFilter} from "../../components/Toolbar/MaskEnum";
+import {DialogProgression} from "../../components/Toolbar/DialogProgression";
+import grp_btn from './group_btn.png'
 
 const bg = [g1, g2];
 
@@ -24,19 +24,20 @@ export const HowTo = () => {
     const navigate = useNavigate();
 
 
-    const pages = useMemo(() => [renderBienvenue(), renderHome(), renderPokeCard(), renderFiltres(), renderRegisterCapture(), renderStats()], []);
+    const pages = useMemo(() => [renderBienvenue(), renderHome(), renderGroup(), renderPokeCard(), renderFiltres(), renderRegisterCapture(), renderStats()], []);
     const value = Array.from({length: pages.length}, (_, i) => i)
     const height = useMemo(() => isMobile ? '80vh' : '70vh', []);
 
     return <div className="grid" style={{overflowY: 'hidden'}}>
-        {isMobile && <SpeedDial model={[]} onClick={() => navigate('/')}
-                                direction="up" showIcon="pi pi-home" rotateAnimation={false}
-                                style={{left: '0.5em',bottom: '0.5em', position: 'fixed', zIndex: 99}} />}
+        <SpeedDial model={[]} onClick={() => navigate('/')}
+                   direction="up" showIcon="pi pi-home" rotateAnimation={false}
+                   style={{left: '0.5em', bottom: '0.5em', position: 'fixed', zIndex: 99}}/>
         <div className="col-0 md:col-1 lg:col-2"></div>
         <div className="col-12 md:col-10 lg:col-8">
             <Card id="how-to" style={isMobile ? {height: '99vh'} : {marginTop: '10vh'}} className="card-blur">
                 <Carousel orientation={isMobile ? "vertical" : 'horizontal'} value={value}
-                          itemTemplate={i => <ScrollPanel style={{height: height}}>{pages[i]}</ScrollPanel>} verticalViewPortHeight={height}/>
+                          itemTemplate={i => <ScrollPanel style={{height: height}}>{pages[i]}</ScrollPanel>}
+                          verticalViewPortHeight={height}/>
             </Card>
         </div>
     </div>
@@ -50,16 +51,30 @@ const renderBienvenue = () => <div className="center">
 const renderHome = () => <div className="grid">
     <div className="col-0 md:col-2"></div>
     <div className="col-12 md:col-8" style={{textAlign: 'center'}}>
-        <h1>Première étape</h1>
-        <h3>Se connecter et choisir une génération parmis celles disponibles</h3>
-        <div>Pour le moment, toutes les générations ne sont pas disponibles</div>
-        <br className="mb-2"/>
+        <h1>Tracez vos Pokédex par génération</h1>
+        <h3>Une fois connecté, vous pouvez choisir une génération parmis celles disponibles</h3>
         {bg.map((i, g) =>
-            <div key={g} className="glass-button pt-3 pb-3" style={{cursor: 'none', backgroundImage: `url(${g < bg.length ? bg[g] : g2})`}}>
-                Génération {g+1}
+            <div key={g} className="glass-button pt-3 pb-3"
+                 style={{cursor: 'none', backgroundImage: `url(${g < bg.length ? bg[g] : g2})`}}>
+                Génération {g + 1}
             </div>)}
+        <small>Les générations suivantes arriveront dans le futur</small>
+
     </div>
 </div>
+
+const renderGroup = () => {
+
+    return <div className="grid">
+        <div className="col-0 md:col-2"></div>
+        <div className="col-12 md:col-8" style={{textAlign: 'center'}}>
+            <h1>Progressez avec vos amis</h1>
+            <p>Vous avez la possibilité de créer et rejoindre un groupe pour mettre en commun vos captures
+                et faciliter l'évolution</p>
+            <img src={grp_btn} alt=""/>
+        </div>
+    </div>
+}
 
 const renderPokeCard = () => {
 
@@ -76,11 +91,10 @@ const renderPokeCard = () => {
     return <div className="grid">
         <div className="col-0 md:col-2"></div>
         <div className="col-12 md:col-8" style={{textAlign: 'center'}}>
-            <h1>Deuxième étape</h1>
-            <h3>Choisir un pokémon à enregistrer</h3>
+            <h1>Parcourez les pokémons de la génération choisie</h1>
             <div>
                 Chaque Pokémon est représenté par une carte comprenant des données sur
-                sa disponibilité (badges de couleur) et sa localisation
+                sa disponibilité (pastilles de couleur) et sa localisation
             </div>
         </div>
         <div className="col-0 md:col-2"></div>
@@ -112,20 +126,11 @@ const renderPokeCard = () => {
 };
 
 const renderFiltres = () => {
-    const f: FilterElements = {
-        search: "",
-        maskAvailable: true,
-        maskCaptured: MaskFilter.None,
-        maskNotCaptured: MaskFilter.None,
-        maskUnavailable: false,
-        nationalDex: false
-    }
 
     return <div className="grid">
         <div className="col-0 md:col-2"></div>
         <div className="col-12 md:col-8" style={{textAlign: 'center'}}>
-            <h1>Deuxième étape - bis</h1>
-            <h3>Filtrer les pokémons</h3>
+            <h1>Filtrez les pokémons</h1>
             <div>
                 Pour faciliter la recherche de Pokémons, il est possible de les filtrer selon
                 leur disponibilité ou capture
@@ -158,8 +163,8 @@ const renderRegisterCapture = () => {
     return <div className="grid">
         <div className="col-0 md:col-2"></div>
         <div className="col-12 md:col-8" style={{textAlign: 'center'}}>
-            <h1>Troisième étape</h1>
-            <h3>Indiquer dans quelle(s) version(s) le Pokémon a été attrapé </h3>
+            <h1>Enregistrez vos captures</h1>
+            <h3>Indiquez dans quelle(s) version(s) le Pokémon a été attrapé</h3>
             <div className="grid mt-1">
                 <div className="col-6">Pokémon dans le Pokédex des versions Rouge et Bleu</div>
                 <div className="col-6">Pokémon dans le pc de la version rouge</div>
@@ -172,8 +177,10 @@ const renderRegisterCapture = () => {
 const renderStats = () => <div className="grid">
     <div className="col-0 md:col-2"></div>
     <div className="col-12 md:col-8" style={{textAlign: 'center'}}>
-        <h1>Visualiser sa progression</h1>
-        <h3>Des stats sur l'avancée sont en cours de développement !</h3>
+        <h1>Visualisez votre progression</h1>
+        <h3>Consultez l'avancée de votre pokédex via la page de progression, listant vos captures et celles de votre
+            groupe</h3>
+        <DialogProgression visible={true} setVisible={() => null} inline={true}/>
     </div>
 </div>;
 

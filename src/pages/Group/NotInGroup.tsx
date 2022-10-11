@@ -3,7 +3,7 @@ import {ImgTxtBtnRow} from "./ImgTxtBtnRow";
 import {Group} from "../../data/User";
 import {useUser} from "../../hooks/useUser";
 import {Button} from "primereact/button";
-import {collection, getDocs, query, Query, updateDoc, where, addDoc, CollectionReference} from "firebase/firestore";
+import {addDoc, collection, CollectionReference, getDocs, query, Query, updateDoc, where} from "firebase/firestore";
 import {COLLECTIONS, getFirestore} from "../../firebase/firebase-config";
 import {useAuthContext} from "../../firebase/AuthProvider";
 import {useInvitation} from "../../hooks/useGroup";
@@ -12,13 +12,13 @@ import {Dialog} from "primereact/dialog";
 import React, {useState} from "react";
 import {isMobile} from "react-device-detect";
 
-export const NotInGroup = ({footer}: {footer: JSX.Element}) => {
+export const NotInGroup = () => {
     const groups = useInvitation();
     const [createGroupDialogVisible, setCreateGroupDialogVisible] = useState(false);
     const {user, getUserRef} = useAuthContext();
     const [groupName, setGroupName] = useState('');
 
-    const createGroup = async() => {
+    const createGroup = async () => {
         const group_collection = collection(getFirestore(), COLLECTIONS.GROUPS) as unknown as CollectionReference<Group>;
         addDoc<Group>(group_collection, {
             users: [user!.uid],
@@ -34,7 +34,7 @@ export const NotInGroup = ({footer}: {footer: JSX.Element}) => {
     };
 
     return <div className="grid" style={{overflowY: 'hidden'}}>
-        <Card className="card-blur centered" footer={footer} style={isMobile ? {width: '100%'}: {}}>
+        <Card className="card-blur centered" style={isMobile ? {width: '100%'} : {}}>
 
             <div className="grid mt-1" onClick={() => setCreateGroupDialogVisible(true)} style={{cursor: 'pointer'}}>
                 <div className="col-2">

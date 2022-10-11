@@ -4,12 +4,15 @@ import {PokeDetails} from "../../components/PokeDetails/PokeDetails";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {COLLECTIONS, getFirestore} from "../../firebase/firebase-config";
 import {collection, Query, query, where} from 'firebase/firestore'
-import {allPkmn, GENS, PKMN_COUNT_BY_GEN, VersionName, VersionType} from "../../data/consts";
+import {allPkmn, GENS, PKMN_COUNT_BY_GEN} from "../../data/consts";
 import {FilterElements, isDispoInVersion, SearchToolbar} from "../../components/Toolbar/SearchToolbar";
 import {useGroup} from "../../hooks/useGroup";
 import {useAuthContext} from "../../firebase/AuthProvider";
 import {MaskFilter} from "../../components/Toolbar/MaskEnum";
 import {PokeList} from "./PokeList";
+import {SpeedDial} from "primereact/speeddial";
+import {useNavigate} from "react-router-dom";
+import {isMobile} from "react-device-detect";
 
 export type SearchContextType = {
     genIndex: number,
@@ -42,8 +45,8 @@ export const useDataContext = () => useContext(SearchContext);
 
 
 function ListPage({genIndex}: {genIndex: number}) {
+    const navigate = useNavigate();
     const [versionIndex, setVersionIndex] = useState(0);
-
     const [_selectedPkmnId, setSelectedPkmnId] = useState<number>(-1);
 
     const {group} = useGroup();
@@ -122,6 +125,10 @@ function ListPage({genIndex}: {genIndex: number}) {
                                              showDialog={selectedPkmnId >= 0} hide={() => setSelectedPkmnId(-1)}
                                              captures={captures.filter(c => c.pkmnId === pokemons[selectedPkmnId].id)}/>
         }
+
+        {!isMobile && <SpeedDial model={[]} onClick={() => navigate('/')}
+                                 direction="up" showIcon="pi pi-home" rotateAnimation={false}
+                                 style={{left: '0.5em', bottom: '0.5em', position: 'fixed', zIndex: 99}}/>}
 
     </SearchContext.Provider>;
 }
