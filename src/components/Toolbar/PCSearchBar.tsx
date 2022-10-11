@@ -1,18 +1,17 @@
-import {useDataContext} from "../../pages/PokeList";
+import {useDataContext} from "../../pages/List/ListPage";
 import {useNavigate} from "react-router-dom";
 import {Toolbar} from "primereact/toolbar";
 import {GENS} from "../../data/consts";
 import {InputText} from "primereact/inputtext";
 import React, {useState} from "react";
-import {FilterProps} from "./SearchToolbar";
 import {Button} from "primereact/button";
 import {DialogFiltres} from "./DialogFiltres";
 import {Divider} from "primereact/divider";
 import {DialogProgression} from "./DialogProgression";
 
-export function PCSearchBar({filters, setFilters}: FilterProps){
+export function PCSearchBar(){
 
-    const {genIndex, versionIndex} = useDataContext();
+    const {genIndex, versionIndex, filters, setFilters} = useDataContext();
     const navigate = useNavigate();
 
     const [filtresVisibles, setFiltresVisibles] = useState(false);
@@ -42,7 +41,7 @@ export function PCSearchBar({filters, setFilters}: FilterProps){
             className="mb-4 pb-2 pt-2" left={left} right={right}
         />
         <Divider layout="vertical"/>
-        <DialogFiltres filters={filters} setFilters={setFilters} visible={filtresVisibles} setVisible={setFiltresVisibles}/>
+        <DialogFiltres visible={filtresVisibles} setVisible={setFiltresVisibles}/>
         <DialogProgression visible={progressionVisible} setVisible={setProgressionVisible}/>
 
     </>

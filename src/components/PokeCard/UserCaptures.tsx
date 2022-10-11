@@ -1,14 +1,17 @@
 import React, {useId, useMemo} from "react";
 import {Button} from "primereact/button";
 import {Capture} from "../../data/Pkmn";
-import {useDataContext} from "../../pages/PokeList";
+import {useDataContext} from "../../pages/List/ListPage";
 import {Tooltip} from "primereact/tooltip";
 import {useUser} from "../../hooks/useUser";
+import {GENS} from "../../data/consts";
 
 
 export function UserCaptures({captures}: {captures: Capture[]}){
 
-    const {versionsOfGen} = useDataContext();
+    const {genIndex, versionIndex} = useDataContext();
+    const versionsOfGen = GENS[genIndex];
+    const selectedVersionValue = versionsOfGen[versionIndex].value;
     const id = 'u'+useId().replaceAll(':', '');
     const user = useUser(captures[0].uid);
 

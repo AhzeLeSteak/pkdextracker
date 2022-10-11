@@ -1,17 +1,18 @@
 import React, {useState} from "react";
-import {VersionType} from "../../data/consts";
+import {GENS, VersionType} from "../../data/consts";
 import {addDoc, collection, getDocs, query, setDoc, where} from "firebase/firestore";
 import {COLLECTIONS, getFirestore} from "../../firebase/firebase-config";
 import {deleteDoc} from "@firebase/firestore";
 import {useAuthContext} from "../../firebase/AuthProvider";
 import {Capture} from "../../data/Pkmn";
 import {Button} from "primereact/button";
-import {useDataContext} from "../../pages/PokeList";
+import {useDataContext} from "../../pages/List/ListPage";
 import './CaptureBadges.css'
 
 export const CaptureButtons = ({pkmnId, captures, demo}: {pkmnId: number, captures: Capture[], demo ?: true}) => {
 
-    const {versionsOfGen} = useDataContext();
+    const {genIndex} = useDataContext();
+    const versionsOfGen = GENS[genIndex];
     const {user} = useAuthContext();
 
     const [loading, setLoading] = useState<number[]>([]);

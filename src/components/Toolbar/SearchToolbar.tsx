@@ -16,13 +16,6 @@ export type FilterElements = {
     nationalDex: boolean
 }
 
-
-
-export type FilterProps = {
-    filters: FilterElements,
-    setFilters: <K extends keyof FilterElements>(key: K, val: FilterElements[K]) => void
-}
-
 export type DialogProps = {
     visible: boolean,
     setVisible: (_: boolean) => void,
@@ -30,27 +23,10 @@ export type DialogProps = {
 }
 
 
-export const SearchToolbar = ({onSearchChange}: {onSearchChange: (_: FilterElements) => void}) => {
+export const SearchToolbar = () => {
 
-
-    const [filters, _setFilters] = useState<FilterElements>({
-        search: '',
-        maskAvailable: false,
-        maskUnavailable: false,
-        maskCaptured: MaskFilter.None,
-        maskNotCaptured: MaskFilter.None,
-        nationalDex: false
-    });
-
-
-    const setFilters = <K extends keyof typeof filters>(key: K, val: typeof filters[K]) => {
-        const newSearchState = {...filters, [key]: val};
-        onSearchChange(newSearchState);
-        _setFilters(newSearchState)
-    }
-
-    return isMobile ? <MobileSpeeddialButton  filters={filters} setFilters={setFilters}/>
-                    : <PCSearchBar filters={filters} setFilters={setFilters}/>;
+    return isMobile ? <MobileSpeeddialButton />
+                    : <PCSearchBar />;
 
 }
 

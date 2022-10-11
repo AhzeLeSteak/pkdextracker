@@ -1,7 +1,7 @@
 import {Card} from "primereact/card";
 import './Home.css';
-import g1 from '../img/g1.png'
-import g2 from '../img/g2.png'
+import g1 from './img/g1.png'
+import g2 from './img/g2.png'
 import {useAuthContext} from "../../firebase/AuthProvider";
 import {Tooltip} from "primereact/tooltip";
 import {useNavigate} from "react-router-dom";

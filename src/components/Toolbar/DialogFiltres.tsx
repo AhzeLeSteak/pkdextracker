@@ -1,19 +1,20 @@
-import {DialogProps, FilterProps} from "./SearchToolbar";
+import {DialogProps} from "./SearchToolbar";
 import React from "react";
 import {isMobile} from "react-device-detect";
 import {Dialog} from "primereact/dialog";
 import {GENS, VersionType} from "../../data/consts";
 import {SelectButton} from "primereact/selectbutton";
-import {useDataContext} from "../../pages/PokeList";
+import {useDataContext} from "../../pages/List/ListPage";
 import {Fieldset} from "primereact/fieldset";
 import './DialogFiltres.css';
 import {MaskFilter} from "./MaskEnum";
 
 
 
-export const DialogFiltres = ({filters, setFilters, inline, visible, setVisible}: FilterProps & DialogProps) => {
+export const DialogFiltres = ({inline, visible, setVisible}: DialogProps) => {
 
-    const {genIndex, versionIndex, setVersionIndex, versionsOfGen} = useDataContext();
+    const {genIndex, versionIndex, setVersionIndex, filters, setFilters} = useDataContext();
+    const versionsOfGen = GENS[genIndex];
     const versionName = versionsOfGen[versionIndex].label;
     const versionValue = versionsOfGen[versionIndex].value;
 

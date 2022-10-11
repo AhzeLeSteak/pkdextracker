@@ -5,22 +5,24 @@ import {Splitter, SplitterPanel} from "primereact/splitter";
 import './PokeDetails.css';
 import {Capture, Pkmn} from "../../data/Pkmn";
 import {CaptureButtons} from "./CaptureButtons";
-import {useDataContext} from "../../pages/PokeList";
+import {useDataContext} from "../../pages/List/ListPage";
 import {isMobile} from "react-device-detect";
 import {Carousel} from "primereact/carousel";
+import {allPkmn, GENS} from "../../data/consts";
 
 type DialogEncouterProps =  {
     pokemons: Pkmn[],
     pkmnId : number, //position du pokémon dans le tableau pokemons
     setPkmnId: (_: number) => void,
     showDialog: boolean,
-    setShowDialog: (_: boolean) => void,
+    hide: () => void,
     captures: Capture[]
 };
 
-export const PokeDetails = ({pkmnId, setPkmnId, pokemons, showDialog, setShowDialog, captures}: DialogEncouterProps) => {
+export const PokeDetails = ({pkmnId, setPkmnId, pokemons, showDialog, hide, captures}: DialogEncouterProps) => {
 
-    const {selectedVersionValue, genIndex} = useDataContext();
+    const {genIndex, versionIndex} = useDataContext();
+    const selectedVersionValue = GENS[genIndex][versionIndex].value;
 
     const [locationIndex, setLocationIndex] = useState<number>(-1);
     const [subIndex, setSubIndex] = useState<number>(-1)
@@ -45,7 +47,7 @@ export const PokeDetails = ({pkmnId, setPkmnId, pokemons, showDialog, setShowDia
 
 
     return <Dialog header={pkmn.name} visible={showDialog} style={{width: isMobile ? '100vw' : '70vw', maxWidth: '1400px'}}
-                   onHide={() => setShowDialog(false)} draggable={false}>
+                   onHide={hide} draggable={false}>
 
         <div className="grid">
             <div className="grid col-12">

@@ -1,5 +1,5 @@
 import './App.css';
-import PokeList from "./pages/PokeList";
+import ListPage from "./pages/List/ListPage";
 import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login";
@@ -18,7 +18,7 @@ function App() {
         <div className="background"></div>
         <HashRouter>
             <Routes>
-                {GENERATIONS.map(g => <Route key={g} path={(g+1).toString()} element={user ? <PokeList genIndex={g}/> : <Navigate to={'/'}/>}/>)}
+                {GENERATIONS.map(g => <Route key={g} path={(g+1).toString()} element={user ? <ListPage genIndex={g}/> : <Navigate to={'/'}/>}/>)}
                 <Route path={'how-to'} element={<HowTo/>}/>
                 <Route path={'group'} element={<Group/>}/>
                 <Route path={'dev'} element={<RetrieveData/>}/>

@@ -2,7 +2,7 @@ import {DialogProps} from "./SearchToolbar";
 import {isMobile} from "react-device-detect";
 import {Dialog} from "primereact/dialog";
 import {Chart} from "primereact/chart";
-import {useDataContext} from "../../pages/PokeList";
+import {useDataContext} from "../../pages/List/ListPage";
 import React, {useMemo, useState} from "react";
 import {GENS, PKMN_COUNT_BY_GEN, VersionName, VersionType} from "../../data/consts";
 import {useAuthContext} from "../../firebase/AuthProvider";
@@ -12,7 +12,8 @@ import {useGroup} from "../../hooks/useGroup";
 
 export const DialogProgression = ({visible, setVisible}: DialogProps) => {
 
-    const {captures, versionsOfGen, genIndex} = useDataContext();
+    const {captures, genIndex} = useDataContext();
+    const versionsOfGen = GENS[genIndex];
     const {user} = useAuthContext();
     const {inGroup} = useGroup();
 

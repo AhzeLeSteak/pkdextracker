@@ -6,8 +6,8 @@ import PokeCard from "../../components/PokeCard/PokeCard";
 import {Pkmn} from "../../data/Pkmn";
 import React, {useMemo} from "react";
 import {isMobile} from "react-device-detect";
-import g2 from "../img/g2.png";
-import g1 from '../img/g1.png'
+import g2 from "../Home/img/g2.png";
+import g1 from '../Home/img/g1.png'
 import {CaptureButtons} from "../../components/PokeDetails/CaptureButtons";
 import {VersionName} from "../../data/consts";
 import {DialogFiltres} from "../../components/Toolbar/DialogFiltres";
@@ -135,7 +135,7 @@ const renderFiltres = () => {
 
         <div className="col-0 md:col-2"></div>
         <div className="col-12 md:col-8">
-            <DialogFiltres filters={f} setFilters={() => null} visible={false} setVisible={() => null} inline={true}/>
+            <DialogFiltres visible={false} setVisible={() => null} inline={true}/>
         </div>
     </div>
 };
