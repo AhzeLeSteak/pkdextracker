@@ -1,26 +1,11 @@
-import {useState} from "react";
-import {collection, getDocs, query, Query, where} from "firebase/firestore";
+import {collection, query, Query, where} from "firebase/firestore";
 import {getFirestore} from "../firebase/firebase-config";
 import {User} from "../data/User";
+import {useCollectionData} from "react-firebase-hooks/firestore";
 
-const users = new Map<string, User>();
-const promises = new Map<string, Promise<User>>();
 
 export const useUser = (uid: string) => {
-    const [user, setUser] = useState<User | undefined>(users.get(uid));
-
-    if(!users.has(uid) && !promises.has(uid)){
-        const q = query(collection(getFirestore(), 'users/'), where('uid', '==', uid)) as Query<User>
-        const p = getDocs(q).then(({docs}) => {
-            const u = docs[0].data();
-            setUser(u);
-            users.set(uid, u)
-            return u;
-        });
-        promises.set(uid, p);
-    }
-    else if(user === undefined && promises.get(uid))
-        promises.get(uid)!.then(setUser);
-
-    return user;
+    const q = query(collection(getFirestore(), 'users/'), where('uid', '==', uid)) as Query<User>
+    const [users] = useCollectionData(q);
+    return users ? users[0] : undefined;
 };

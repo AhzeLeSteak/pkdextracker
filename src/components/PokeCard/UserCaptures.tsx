@@ -9,9 +9,8 @@ import {GENS} from "../../data/consts";
 
 export function UserCaptures({captures}: {captures: Capture[]}){
 
-    const {genIndex, versionIndex} = useDataContext();
+    const {genIndex} = useDataContext();
     const versionsOfGen = GENS[genIndex];
-    const selectedVersionValue = versionsOfGen[versionIndex].value;
     const id = 'u'+useId().replaceAll(':', '');
     const user = useUser(captures[0].uid);
 
