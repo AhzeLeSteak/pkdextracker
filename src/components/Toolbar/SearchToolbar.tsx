@@ -34,10 +34,11 @@ export const SearchToolbar = () => {
 
 
 const preEvolution = (pk: Pkmn) => allPkmn.find(p => p.base_name === pk.preEvoBaseName);
+
 export const isDispoInVersion = (v: string, pk ?: Pkmn): boolean => {
     if(!pk) return false;
     const preEvo = preEvolution(pk);
     return pk.locations.some(l => v.includes(l.version))
-        || pk.evolving_methods.length > 0
-        || (preEvo ? isDispoInVersion(v, preEvo) : false);
+        || (pk.evolving_methods.length > 0
+        && (preEvo ? isDispoInVersion(v, preEvo) : false));
 }

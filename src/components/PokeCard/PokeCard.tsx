@@ -52,7 +52,7 @@ const PokeCard = (props: {pk: Pkmn, captures: Capture[], onClick: (pkmn: any) =>
 
         <div>
 
-            {locations.length
+            {isDispoInVersion(GENS[genIndex][versionIndex].value, pk)
                 ? <ScrollPanel style={{width: '100%', height: '200px'}}>
                     <ListBox options={locations}/>
                 </ScrollPanel>
