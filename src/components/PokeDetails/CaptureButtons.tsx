@@ -66,7 +66,7 @@ export const CaptureButtons = ({pkmnId, captures, demo}: {pkmnId: number, captur
                 const inPc = capture && capture.inPc;
                 return <div key={v.value} className="row" style={{backgroundColor: v.color}}>
                     {loading.includes(i*2) ? loadingBtn('first') :
-                        <Button style={capture ? {backgroundColor: v.color, color: 'white'} : {}}
+                        <Button style={capture ? {backgroundColor: v.color, color: v.light_color ? 'black' : 'white'} : {}}
                                       className={'p-button-rounded first ' + (!capture ? 'p-button-outlined' : '')}
                                       label="Pokédex"
                                       onClick={() => demo ? null : !capture ? setCaptured(v, false, i*2) : deleteCapture(v, i*2)}

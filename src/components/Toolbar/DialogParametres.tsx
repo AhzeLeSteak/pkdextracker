@@ -30,7 +30,7 @@ export const DialogParametres = ({inline, visible, setVisible}: DialogProps) => 
                     <SelectButton value={versionValue}
                                   options={GENS[genIndex]}
                                   optionValue="value"
-                                  itemTemplate={(e: VersionType) => <div style={{color: e.value === versionValue ? 'white' : e.color}}>{e.label}</div>}
+                                  itemTemplate={(e: VersionType) => <div style={{color: e.value === versionValue ? 'white' : e.light_color ? 'black' : e.color}}>{e.label}</div>}
                                   onChange={handleVersionChange}
                     />
                 </div>

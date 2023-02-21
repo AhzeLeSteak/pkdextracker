@@ -4,7 +4,7 @@ import {PokeDetails} from "../../components/PokeDetails/PokeDetails";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {COLLECTIONS, getFirestore} from "../../firebase/firebase-config";
 import {collection, Query, query, where} from 'firebase/firestore'
-import {allPkmn, GENS, PKMN_COUNT_BY_GEN} from "../../data/consts";
+import {allPkmn, GENS, PKMN_COUNT_BY_GEN, REGIONAL_DEXS} from "../../data/consts";
 import {FilterElements, isDispoInVersion, SearchToolbar} from "../../components/Toolbar/SearchToolbar";
 import {useGroup} from "../../hooks/useGroup";
 import {useAuthContext} from "../../firebase/AuthProvider";
@@ -67,12 +67,14 @@ function ListPage({genIndex}: {genIndex: number}) {
     })
 
     const pokemons: Pkmn[] = useMemo(() => {
-        const nbPk = PKMN_COUNT_BY_GEN[genIndex];
-        const startIndex = PKMN_COUNT_BY_GEN.slice(0, genIndex).reduce((a, b) => a+b, 0);
         const index = parseInt(filters.search);
         const versionsOfGen = GENS[genIndex];
         const selectedVersion = versionsOfGen[versionIndex].value;
-        return allPkmn.slice(filters.nationalDex ? 0 :startIndex, nbPk+startIndex).filter(pk => {
+
+        const mons = filters.nationalDex
+            ? allPkmn.slice(0, PKMN_COUNT_BY_GEN.slice(0, genIndex+1).reduce((a, b) => a+b, 0))
+            : REGIONAL_DEXS[genIndex+1].map(pkId => allPkmn[pkId-1]);
+        return mons.filter(pk => {
 
             //recherche dispo / pas dispo
             const dispo = isDispoInVersion(selectedVersion, pk);

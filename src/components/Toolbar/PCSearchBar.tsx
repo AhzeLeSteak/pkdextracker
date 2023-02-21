@@ -17,7 +17,10 @@ export function PCSearchBar(){
     const [filtresVisibles, setFiltresVisibles] = useState(false);
     const [progressionVisible, setProgressionVisible] = useState(false);
 
-    const left = <div onClick={() => navigate('/')} style={{color: 'white', fontSize: '36px', cursor: 'pointer'}}>Pkdex Tracker</div>
+    const left = <div onClick={() => navigate('/')} style={{color: GENS[genIndex][versionIndex].light_color ? '#0c0b0b94' : 'white', fontSize: '36px',cursor: 'pointer'}}>
+        Pkdex Tracker
+    </div>;
+
     const right = <>
         <Button label="Progression" className="p-button-secondary pl-3 pr-3" onClick={() => setProgressionVisible(true)}/>
         <Divider layout="vertical"/>

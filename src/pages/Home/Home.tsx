@@ -2,6 +2,9 @@ import {Card} from "primereact/card";
 import './Home.css';
 import g1 from './img/g1.png'
 import g2 from './img/g2.png'
+import g3 from './img/g3.png'
+import g4 from './img/g4.png'
+import g5 from './img/g5.png'
 import {useAuthContext} from "../../firebase/AuthProvider";
 import {Tooltip} from "primereact/tooltip";
 import {useNavigate} from "react-router-dom";
@@ -9,7 +12,7 @@ import {Button} from "primereact/button";
 import {Badge} from "primereact/badge";
 import {useInvitation} from "../../hooks/useGroup";
 
-const bg = [g1, g2];
+const bg = [g1, g2, g3, g4, g5];
 
 function Home(){
     const {user, logout} = useAuthContext();

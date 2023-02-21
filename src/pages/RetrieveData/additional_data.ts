@@ -1,4 +1,4 @@
-import {Encounter, EvolutionDetail, Item, MainClient, Move, Name} from "pokenode-ts";
+import {Encounter, EvolutionDetail, Item, Location, MainClient, Move, Name} from "pokenode-ts";
 import {memoizeMap} from "../../data/memoize";
 
 const encounterMap = new Map();
@@ -27,11 +27,16 @@ encounterMap.set('cave-spots', 'Nuage de poussière');
 encounterMap.set('grass-spots', 'Hautes herbes sombres');
 encounterMap.set('pokeflute', 'Pokéflute');
 encounterMap.set('only-one', 'Rencontre unique');
+encounterMap.set('roaming-water', 'Erre dans l\'eau')
+encounterMap.set('roaming-grass', 'Erre dans les hautes herbes')
+encounterMap.set('bridge-spots', 'Ombre aérienne')
 
 const api = new MainClient();
 
 const getItemByName = memoizeMap<string, Item>((name: string) => api.item.getItemByName(name));
 const getMoveByName = memoizeMap<string, Move>((name: string) => api.move.getMoveByName(name));
+const getLocationByName = memoizeMap<string, Location>((name: string) => api.location.getLocationByName(name));
+
 const getFrName = (obj: {names: Name[]}) => obj.names.find(n => n.language.name === 'fr')?.name;
 const idFromUrl = (url: string) => {
     const path = url.split('/').filter(el => el.length);
@@ -51,7 +56,7 @@ function captureDetails(encounter_details: Encounter[]) {
                         ? encounter.min_level
                         : `${encounter.min_level} - ${encounter.max_level}`
                 ) + ')'
-        console.warn('unknowk method', encounter);
+        console.warn('unknown encounter method', encounter);
         return 'Méthode d\'obtention inconnue';
     });
     return res.filter(onlyUnique);
@@ -79,8 +84,12 @@ async function evolDetail(evolDetail: EvolutionDetail) {
                 const nom = getFrName(species);
                 return `Montée de niveau en ayant un ${nom} dans son équipe`;
             }
-            else if(evolDetail.min_beauty !== null){
+            else if(evolDetail.min_beauty !== null)
                 return 'Montée de niveau en ayant une beauté de ' + evolDetail.min_beauty;
+            else if(evolDetail.location){
+                const location = await getLocationByName(evolDetail.location.name);
+                const nom = getFrName(location);
+                return 'Montée de niveau à cet endroit : ' + nom
             }
             console.warn('montée de niveau', evolDetail);
             return 'Montée de niveau (condition inconnue)';

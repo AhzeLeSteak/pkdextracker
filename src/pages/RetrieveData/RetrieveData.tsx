@@ -8,7 +8,7 @@ export const RetrieveData = () => {
 
     useEffect(() => {
         const p = [];
-        for(let i = 252; i <= 386; i++)
+        for(let i = 387; i <= 649; i++)
             p.push(get_pokemon(i));
         Promise.all(p).then(console.log);
     }, []);
