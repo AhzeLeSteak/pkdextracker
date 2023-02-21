@@ -39,3 +39,7 @@ span.p-autocomplete input.p-inputtext{
 div.p-selectbutton.p-buttonset.p-component{
     box-shadow: none;
 }
+
+.p-card .p-card-content {
+  padding: 0 !important;
+}

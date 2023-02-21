@@ -1,9 +1,7 @@
 import './PokeCard.css';
-import {ScrollPanel} from "primereact/scrollpanel";
 import {Card} from "primereact/card";
-import React, {useMemo} from "react";
-import {Capture, Location, Pkmn} from "../../data/Pkmn";
-import {ListBox} from "primereact/listbox";
+import React from "react";
+import {Capture, Pkmn} from "../../data/Pkmn";
 import {Badge} from "primereact/badge";
 import {isDispoInVersion} from "../Toolbar/SearchToolbar";
 import {UserCaptures} from "./UserCaptures";
@@ -11,56 +9,32 @@ import {useDataContext} from "../../pages/List/ListPage";
 import {GENS} from "../../data/consts";
 
 
-type PartLocation = Partial<Location>;
-
-const PokeCard = (props: {pk: Pkmn, captures: Capture[], onClick: (pkmn: any) => any}) => {
+const PokeCard = (props: { pk: Pkmn, captures: Capture[], onClick: (pkmn: any) => any }) => {
 
     const {genIndex, versionIndex} = useDataContext();
     const versionsOfGen = GENS[genIndex];
-    const selectedVersionValue = versionsOfGen[versionIndex].value;
     const pk = props.pk;
 
-    const locations: PartLocation[] = useMemo(() => {
-        const locations: PartLocation[] = pk.locations.filter(location => location.version === selectedVersionValue);
-        locations.unshift(...pk.evolving_methods.filter(l => genIndex > 1 || !l.includes('bonheur')).map(e => ({label: e})));
-        return locations;
-    }, [pk, selectedVersionValue, genIndex]);
 
-    const title = <div className="grid">
-        <div className="col-fixed" style={{display: 'grid', width: '250px'}}>
-            #{pk.id} {pk.name}
-            <small className="ml-1" style={{fontSize: '0.5em'}}>{pk.base_name}</small>
-        </div>
-        <div className="col-12 md:col lg:col">
-            {versionsOfGen.filter(v => isDispoInVersion(v.value, pk)).map(v =>
-                <Badge key={v.value} style={{backgroundColor: v.color}}></Badge>
-            )}
-        </div>
-    </div>
 
-    return <Card title={title} className="card-blur" style={{cursor: 'pointer'}} onClick={props.onClick}>
-        <div className="grid">
-            <div className="col-6">
-                <img src={pk.sprite} alt={'#'+pk.id} className="pk-img"/>
+    return <Card className="card-blur cursor-pointer h-8rem" onClick={props.onClick}>
+        <div className="flex justify-content-between" style={{width: '100%'}}>
+            <div className="flex flex-column">
+                <h3 className="mt-0">#{pk.id} {pk.name}</h3>
+                <div>
+                    {versionsOfGen.filter(v => isDispoInVersion(v.value, pk)).map(v =>
+                        <Badge key={v.value} style={{backgroundColor: v.color}}></Badge>
+                    )}
+                </div>
             </div>
-            <div className="col-6">
+            <div>
                 {props.captures.filter(c => versionsOfGen.some(v => v.value === c.version)).map(c => c.uid).filter((el, index, array) => array.findIndex(x => x === el) === index)
                     .map(uid => props.captures.filter(capture => capture.uid === uid))
                     .map((userCaptures, i) => <UserCaptures key={i} captures={userCaptures}/>)}
             </div>
+            <img src={pk.sprite} alt={'#' + pk.id} className="pk-img"/>
         </div>
 
-        <div>
-
-            {isDispoInVersion(GENS[genIndex][versionIndex].value, pk)
-                ? <ScrollPanel style={{width: '100%', height: '200px'}}>
-                    <ListBox options={locations}/>
-                </ScrollPanel>
-                : <ScrollPanel style={{width: '100%', height: '200px'}}>
-                    <ListBox options={['Non disponible']}/>
-                </ScrollPanel>
-            }
-        </div>
     </Card>
 }
 
