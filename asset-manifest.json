@@ -1,11 +1,13 @@
 {
   "files": {
-    "main.css": "/pkdextracker/static/css/main.c93f4f00.css",
-    "main.js": "/pkdextracker/static/js/main.ae957606.js",
+    "main.css": "/pkdextracker/static/css/main.51c76b77.css",
+    "main.js": "/pkdextracker/static/js/main.cd7d3304.js",
     "static/js/369.ff68186e.chunk.js": "/pkdextracker/static/js/369.ff68186e.chunk.js",
     "static/js/787.47ee016d.chunk.js": "/pkdextracker/static/js/787.47ee016d.chunk.js",
+    "static/media/g5.png": "/pkdextracker/static/media/g5.034e1c4c15c9d839a816.png",
     "static/media/g2.png": "/pkdextracker/static/media/g2.51665b92113a2d8052c4.png",
     "static/media/primeicons.svg": "/pkdextracker/static/media/primeicons.c6e2053303524e39530c.svg",
+    "static/media/g4.png": "/pkdextracker/static/media/g4.b74e7a2ec24472e0169d.png",
     "static/media/Inter-Bold.woff": "/pkdextracker/static/media/Inter-Bold.93c1301bd9f486c573b3.woff",
     "static/media/Inter-SemiBold.woff": "/pkdextracker/static/media/Inter-SemiBold.cca62d21c8c555c392e5.woff",
     "static/media/Inter-Medium.woff": "/pkdextracker/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
@@ -20,15 +22,16 @@
     "static/media/primeicons.eot": "/pkdextracker/static/media/primeicons.7fc4d8e224d1ff1b9c62.eot",
     "static/media/primeicons.woff": "/pkdextracker/static/media/primeicons.449aa8c65cdc5c2a8686.woff",
     "static/media/primeicons.ttf": "/pkdextracker/static/media/primeicons.91bacab1f083f2795272.ttf",
+    "static/media/g3.png": "/pkdextracker/static/media/g3.94232446d489364a5703.png",
     "static/media/group_btn.png": "/pkdextracker/static/media/group_btn.fe9ff118b5e686015640.png",
     "index.html": "/pkdextracker/index.html",
-    "main.c93f4f00.css.map": "/pkdextracker/static/css/main.c93f4f00.css.map",
-    "main.ae957606.js.map": "/pkdextracker/static/js/main.ae957606.js.map",
+    "main.51c76b77.css.map": "/pkdextracker/static/css/main.51c76b77.css.map",
+    "main.cd7d3304.js.map": "/pkdextracker/static/js/main.cd7d3304.js.map",
     "369.ff68186e.chunk.js.map": "/pkdextracker/static/js/369.ff68186e.chunk.js.map",
     "787.47ee016d.chunk.js.map": "/pkdextracker/static/js/787.47ee016d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c93f4f00.css",
-    "static/js/main.ae957606.js"
+    "static/css/main.51c76b77.css",
+    "static/js/main.cd7d3304.js"
   ]
 }
