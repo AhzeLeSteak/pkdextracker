@@ -7,8 +7,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 150vw;
-  height: 150vh;
+  width: 300vw;
+  height: 300vh;
   background-image: url("/public/bg.png");
   animation: slide 60s linear infinite;
 }
